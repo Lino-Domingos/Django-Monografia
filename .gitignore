@@ -30,4 +30,4 @@ node_modules/
 .git/
 
 # Arquivos txt
-requirements.txt
+*.txt
