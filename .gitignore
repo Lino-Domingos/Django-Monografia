@@ -1,0 +1,33 @@
+# Diretórios de Configuração do VSCode
+.vscode/
+
+# Arquivos de Configuração do VSCode
+.vscode/settings.json
+.vscode/tasks.json
+.vscode/launch.json
+.vscode/extensions.json
+
+# Diretórios e Arquivos de Build
+out/
+*.log
+
+# Diretórios e Arquivos de Dependências
+node_modules/
+*.lock
+
+# Arquivos Temporários e de Cache
+.cache/
+.vs/
+.history/
+.vscode-test/
+*.swp
+
+# Arquivos de Log e Backup
+*.log
+*.bak
+
+# Arquivos de Configuração do Git (não é necessário rastrear)
+.git/
+
+# Arquivos txt
+requirements.txt
