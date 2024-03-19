@@ -1,0 +1,87 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pagina Login</title>
+
+    <link rel="icon" href="{% static 'img/Edm_logo.ico' %}"
+          type="image/x-icon">
+
+    <!--Link CSS Project-->
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+
+    <!--Link CSS Bootstrap 4.1.3-->
+    
+    <link rel="stylesheet" href="{% static 'css/bootstrap4.1.3.min.css' %}">
+
+    <!--Link CDN Font Awesome-->
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+
+</head>
+<body>
+    <!--Comentar o css do codigo bem o html-->
+    
+    <!--Container responsavel pela card do login-->
+    <div class="container">
+        <div class="d-flex justify-content-center h-100">
+            <div class="card">
+
+                <div class="card-header">
+                    <div class="d-flex flex-column align-items-center">
+                        <div class="logo">
+                            <img src="{% static 'img/Edm_logo.ico' %}" alt="">
+                        </div>
+    
+                        <!--Nome do aplicativo-->
+                        <!--Nome da instituicao-->
+                        <div class="dept text-center">
+                           Sistema de Gestao de Dados GIS 
+                           <hr class="test"> 
+                           Direcção de Protecção de Receitas e Controle de Perdas 
+                        </div>
+
+                    </div>
+                </div>
+
+                                        <!--Cartao do Formulario -->
+
+            <div class="card-body">
+                    <form>
+                     <!--Formulario de DADOS-->
+
+                        <!--Classe responsavel para adicionar o nome do usuario no input-->
+                        <div class="input-group form-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-user"></i></span>
+                            </div>
+                            <input type="text" class="form-control" placeholder="username">
+                        </div>
+
+                        <!--Classe responsavel para adicionar o nome do usuario no input-->
+                        <div class="input-group form-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-key"></i></span>
+                            </div>
+                            <input type="password" class="form-control" placeholder="password">
+                        </div>
+                        
+                        <!--Botao responsavel pela botao de Login-->
+                        <div class="form-group">
+                            <input type="submit" value="Login" class="btn float-right login_btn" id="loginButton">
+                        </div>
+
+                    </form>
+           </div>
+        </div>
+    </div>
+    </div>
+    <!--Link JS Project-->
+
+    <!--Link JS Bootstrap 5.3.2-->
+     
+    <script src="{% static 'js/jquery3.2.1.js' %}"></script> 
+</body>
+</html>

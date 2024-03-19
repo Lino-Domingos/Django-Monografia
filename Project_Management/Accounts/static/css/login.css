@@ -1,0 +1,117 @@
+/* Made with love by Mutiullah Samim*/
+
+@import url('https://fonts.googleapis.com/css?family=Numans');
+
+html,body{
+background-image: url('../img/Edm-bg.jpg');
+background-size: cover;
+background-repeat: no-repeat;
+height: 100%;
+font-family: 'Numans', sans-serif;
+}
+
+.container{
+height: 90%;
+align-content: center;
+}
+
+.card{
+height: 450px;
+margin-top: auto;
+margin-bottom: auto;
+width: 400px;
+background-color: rgba(0,0,0,0.5) !important;
+}
+
+.card-header {
+    height: 60%;
+    display: flex;
+    justify-content: center; /* Centraliza horizontalmente */
+    align-items: center; /* Centraliza verticalmente */
+}
+
+@media screen and (width: 720px) and (height: 1600px) {
+    .card {
+        height: 600px; /* Novo tamanho da altura */
+        width: 600px; /* Novo tamanho da largura */
+    }
+    
+    .card-header {
+        height: 80%; /* Novo tamanho da altura do cabeçalho */
+    }
+}
+
+@media screen and (width: 912px) and (height: 1368px) {
+    .card {
+        height: 600px; /* Novo tamanho da altura */
+        width: 600px; /* Novo tamanho da largura */
+    }
+    
+    .card-header {
+        height: 80%; /* Novo tamanho da altura do cabeçalho */
+    }
+}
+
+
+
+.input-group-prepend span{
+width: 50px;
+background-color: #fb8500;
+color: black;
+border:0 !important;
+}
+
+input:focus{
+outline: 0 0 0 0  !important;
+box-shadow: 0 0 0 0 !important;
+
+}
+
+.login_btn{
+color: black;
+background-color: #fb8500;
+width: 100px;
+}
+
+.login_btn:hover{
+color: black;
+background-color: white;
+}
+
+.links{
+color: white;
+}
+
+.links a{
+margin-left: 4px;
+}
+
+/*Centraliza a imagem no centro do card
+  Ajusta o tamanho da logo
+*/
+img{
+    height: 20vh;
+    width: 20vh;
+}
+
+/* Classe responsavel:
+   Nome da instituicao, nome do departamento entre outros
+  */
+.dept{
+    color: #fb8500;
+    font-weight: 800;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Numans', sans-serif;
+
+}
+
+.test{
+    color: #fb8500;
+    border: 5px solid ; /* Cor e estilo da linha */
+    margin: 1px 1px; /* Espaçamento em cima e em baixo */
+}
+
+
+
+
