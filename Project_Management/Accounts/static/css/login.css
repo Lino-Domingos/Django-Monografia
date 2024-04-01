@@ -7,7 +7,6 @@ background-image: url('../img/Edm-bg.jpg');
 background-size: cover;
 background-repeat: no-repeat;
 height: 100%;
-font-family: 'Numans', sans-serif;
 }
 
 .container{
@@ -16,19 +15,23 @@ align-content: center;
 }
 
 .card{
-height: 450px;
+height: 510px;
 margin-top: auto;
 margin-bottom: auto;
-width: 400px;
+width: 350px;
 background-color: rgba(0,0,0,0.5) !important;
+font-family: 'Times New Roman', Times, serif;
 }
 
+
 .card-header {
-    height: 60%;
+    height: 54%;
     display: flex;
     justify-content: center; /* Centraliza horizontalmente */
     align-items: center; /* Centraliza verticalmente */
 }
+
+
 
 @media screen and (width: 720px) and (height: 1600px) {
     .card {
@@ -37,7 +40,7 @@ background-color: rgba(0,0,0,0.5) !important;
     }
     
     .card-header {
-        height: 80%; /* Novo tamanho da altura do cabeçalho */
+        height: 70%; /* Novo tamanho da altura do cabeçalho */
     }
 }
 
@@ -48,9 +51,11 @@ background-color: rgba(0,0,0,0.5) !important;
     }
     
     .card-header {
-        height: 80%; /* Novo tamanho da altura do cabeçalho */
+        height: 70%; /* Novo tamanho da altura do cabeçalho */
     }
 }
+
+
 
 
 
@@ -59,6 +64,10 @@ width: 50px;
 background-color: #fb8500;
 color: black;
 border:0 !important;
+}
+
+.messages{
+    color: white;
 }
 
 input:focus{
@@ -75,7 +84,7 @@ width: 100px;
 
 .login_btn:hover{
 color: black;
-background-color: white;
+background-color: #291b0b;
 }
 
 .links{
@@ -102,8 +111,6 @@ img{
     font-weight: 800;
     justify-content: center;
     align-items: center;
-    font-family: 'Numans', sans-serif;
-
 }
 
 .test{
