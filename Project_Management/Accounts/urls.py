@@ -1,7 +1,8 @@
 from django.urls import path
-from . import views
+
 
 urlpatterns = [
-    path('', views.login_view, name="Login"),
+    #path('', home, name='home'),
+    #path('logout/', LogoutView.as_view(next_page = reverse_lazy('Login')), name = 'logout')
 ]
 

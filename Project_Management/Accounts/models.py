@@ -1,3 +1,4 @@
+from typing import Any
 from django.db import models
 from django.contrib.auth.models import Group  # Importe o modelo Group do Djang
 from django.contrib.auth.models import AbstractUser
@@ -12,14 +13,31 @@ class TipoUsuario(models.Model):
     nome = models.CharField(max_length = 40)
 
     def __str__(self):
-        return self.nome
+            return self.nome
+    
+# Classe Provincia
+class Provincia(models.Model):
+    nome_provincia = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.nome_provincia
     
 
-  # Classe responsavel pela area de servico ao Cliente  
+# Classe para o tipo de User
+class Direccao_Regional(models.Model):
+     nome_direccao = models.CharField(max_length=10, default=1)
+     provincia = models.ForeignKey(Provincia, on_delete=models.CASCADE)
+
+
+     def __str__(self):
+          return self.nome_direccao
+     
+
+# Classe responsavel pela area de servico ao Cliente  
 class ASC(models.Model):
     nome = models.CharField(max_length = 30)
-    direccao_regional = models.CharField (max_length = 7)
-    sigla_ASC = models.CharField(max_length = 2)
+    codigo_ASC = models.CharField(max_length = 2)
+    direccao_regional = models.ForeignKey(Direccao_Regional, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.nome
@@ -38,5 +56,3 @@ class Usuario(AbstractUser):
         related_name='team_user_permissions',
         help_text=_('Specific permissions for this user.'),
     )
-
-   

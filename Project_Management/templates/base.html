@@ -148,28 +148,48 @@
           </li>
           <li class="nav-item dropdown dropstart">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              <i class="fa-solid fa-user"></i> Perfil
+              <i class="fa-solid fa-user"></i>
+              {% if request.user.is_authenticated %}
+                  {{ request.user.first_name }}
+                  {% else %}
+                     None
+              {% endif %}
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
               <li>
                 <a class="dropdown-item" href="#">
-                  <i class="fa fa-cog" aria-hidden="true" style="border: 1px solid  orange; padding: 5px;">
+                  <i class="fa fa-cog" aria-hidden="true" style="border: 1px solid; padding: 5px;">
                   </i>
                 Meu Perfil</a>
               </li>
               <li>
                <a class="dropdown-item" href="">
-                  <i class="fa fa-cog" aria-hidden="true" style="border: 1px solid  orange; padding: 5px;">
+                  <i class="fa fa-cog" aria-hidden="true" style="border: 1px solid ; padding: 5px;">
                   </i>
                 Suporte
               </a>
               </li>
-              <li>
-              <a class="dropdown-item" href="">
-                <i class="fa fa-cog" aria-hidden="true" style="border: 1px solid  orange; padding: 5px;">
-                </i>
-              Sair
-             </a>
+              
+              <form action="{% url 'logout' %}" method="post">
+                {% csrf_token %}
+                {% if user.is_authenticated %}
+                    <button type="submit">Sair</button>
+                {% endif %}
+            </form>
+              
+             
+              
+              
+            
+          
+
+
+            
+
+                 
+                
+                     
+
               </li>
             </ul>
 

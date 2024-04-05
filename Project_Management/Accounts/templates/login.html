@@ -1,4 +1,5 @@
 {% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -47,22 +48,18 @@
                 </div>
 
                                         <!--Cartao do Formulario -->
+                
 
             <div class="card-body">
-                    <!-- login.html -->
-                    {% if messages %}
-                        <ul class="list">
-                        {% for message in messages %}
-                            <li style="color: white;  font-family: 'Numans', sans-serif; text-decoration: underline;">{{ message }}</li>
-                        {% endfor %}
-                        </ul>
-                  
-                    {% endif %} 
+                   
 
                     <form method="POST">
                         <!--Tag em Django Para a seguranca dos formularios -->
-
                         {% csrf_token %}
+                        
+                        {% if form.non_field_errors %}
+                            <div class="alert alert-info p-1">Username e/ou Passord Incorrecto</div>
+                        {% endif %}
 
                      <!--Formulario de DADOS-->
                         <!--Classe responsavel para adicionar o nome do usuario no input-->
@@ -70,10 +67,9 @@
                             <div class="input-group-prepend">
                                  <span class="input-group-text"><i class="fas fa-user"></i></span> 
                             </div>
-                            {# Formulario username #}
+                            {% csrf_token %}
 
                             {{ form.username }}
-
 
                         </div>
 
@@ -82,17 +78,13 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fas fa-key"></i></span>
                             </div>
-
-                            {# Formulario pass #}
-
+                            {% csrf_token %}
+                            
                             {{ form.password }}
-
-
                         </div>
                         
                         <!--Botao responsavel pela botao de Login-->
                         <div class="form-group">
-
                         <input type="submit"  value="Entrar" class="btn float-right login_btn" id="login_btn"> 
                         </div> 
 
