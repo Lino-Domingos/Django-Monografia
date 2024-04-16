@@ -1,15 +1,225 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
+
 
 {% block title %}
-      Team
+    Administração de Equipes
 {% endblock %}
 
-{% block content_main %}  
-         <h2 class="mt-4 m-3">Topicos </h2>
-      <ul class="m-3">
-        <li> Criar Equipe</li>
-        <li> Actualizar Equipe</li>
-        <li> Deletar Equipe </li>
-      </ul>
+{% block page_header %} 
+  Equipe
+{% endblock page_header %}
+
+{% block content_main %} 
+
+<ul class="collapsible popout" data-collapsible="accordion" id="section-size">
+
+  <h6 class="col s4" style="font-weight: 450; margin-top: 15px; font-size: 1rem;"> 
+    Equipe Nova
+  </h6>
+  <div class="divider black"></div>
+  <li class="active">
+
+    
+      
+    <div class="collapsible-header"><i class="bx bxs-user"></i> Integrantes da Equipe</div>
+    
+    <div class="collapsible-body">
+      <form class="card brown lighten-5" id="myForm1" action="">
+
+        <h6 style="font-weight: 500; margin-bottom: 12px; ">Localização da equipe</h6>
+
+        <div class="row">
+            <div class="col s6">
+              <label class="black-text">Província</label>
+              <select class="browser-default">
+                <option value="" disabled selected>Selecione a Província</option>
+                <option value="1">Cidade de Maputo</option>
+                <option value="2">Maputo Provincia</option>
+                <option value="3">Gaza</option>
+                <option value="1">Inhambane</option>
+                <option value="2">Sofala</option>
+                <option value="3">Manica</option>
+                <option value="1">Tete</option>
+                <option value="2">Zambezia</option>
+                <option value="3">Nampula</option>
+                <option value="2">Cabo Delgado</option>
+                <option value="3">Niassa</option>
+              </select>
+            </div>
+
+            <div class="col s6">
+              <label class="black-text">Direcção Regional</label>
+              <select class="browser-default">
+                <option value="" disabled selected> Selecione a Direcção Regional</option>
+                <option value="1">Option 1</option>
+                <option value="2">Option 2</option>
+                <option value="3">Option 3</option>
+              </select>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class=" col s6">
+              <label class="black-text">Área de Serviço ao Cliente</label>
+              <select class="browser-default">
+                <option value="" disabled selected>Selecione a ASC</option>
+                <option value="1">Option 1</option>
+                <option value="2">Option 2</option>
+                <option value="3">Option 3</option>
+              </select>
+            </div>
+        
+
+        <div class="col s6">
+          <label class="black-text">Código da ASC</label>
+          <select class="browser-default ">
+            <option value="1" disabled selected >Ka Mavota</option>
+            <option value="2" disabled selected >Ka Maxaquene</option>
+            <option value="3" disabled selected >Ka Kampfumo</option>
+            <option value="4" disabled selected >Ka Mavota</option>
+
+          </select>
+        </div>
+    </div>
+       
+    <h6 style="font-weight: 500; margin-bottom: 12px; ">Membros da equipe</h6>
+    
+    <div class="row">
+
+         <div class=" input-field col s6">
+          <input placeholder="Digite o nome" id="first_name" type="text" class="validate">
+          <label for="first_name">Membro 1</label>
+         </div>
+         
+         <div class=" input-field col s6">
+          <input placeholder="Selecione o Supervisor Equipe" id="first_name" type="text" class="validate">
+          <label for="first_name">Supervisor</label>
+         </div>
+
+    </div>
+          
+    <div class="row">
+
+      <div class=" input-field col s6">
+        <input placeholder="Digite o nome" id="first_name" type="text" class="validate">
+        <label for="first_name">Membro 1</label>
+       </div>
+
+       <div class=" input-field col s6">
+        <input placeholder="Selecione a Sigla" id="first_name" type="text" class="validate">
+        <label for="first_name">Sigla</label>
+       </div>
+
+    </div>
+
+    <div class="row">
+      <div class="col">
+        <button class="btn " type="submit"> Guardar </button>
+      </div>
+      <div class="col">
+        <button class="btn " type="submit"> Limpar</button>
+      </div>
+    </div>    
+    
+  </form>           
+ </div>
+  </li>
+  
+</ul>
+
+<ul class="collapsible popout" data-collapsible="accordion" id="section-size">
+
+     <h6 class="col s4" style="font-weight: 450; margin-top: 25px; font-size: 1rem;"> 
+       Equipe Alteração 
+      </h6>
+    <div class="divider black"></div>
+
+  <li >
+    <div class="collapsible-header"><i class="bx bxs-pencil"></i>Alteração dados da equipe existente</div>
+    
+    <div class="collapsible-body"></div>
+  </li>
+</ul>
+
+<ul class="collapsible popout" data-collapsible="accordion" id="section-size">
+
+  <h6 class="col s4" style="font-weight: 450; margin-top: 25px; font-size: 1rem;"> 
+    Equipe Visualização
+   </h6>
+ <div class="divider black"></div>
+
+<li class="active">
+ <div class="collapsible-header"><i class="bx bxs-show"></i>Visualização Equipes</div>
+ 
+ <div class="collapsible-body">
+
+  <table class="card brown lighten-5">
+    <thead>
+      <tr>
+          <th data-field="id">Sigla</th>
+          <th data-field="name">ASC</th>
+          <th data-field="price">Nome 1</th>
+          <th data-field="price">Nome 2</th>
+          <th data-field="price">Supervisor</th>
+          <th data-field="price">Date Create</th>
+
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr>
+        <td>A</td>
+        <td>Ka Kamavota</td>
+        <td>Fernando</td>
+        <td>Narcia</td>
+        <td>Stelio</td>
+        <td>12/04/24</td>
+      </tr>
+
+      <tr>
+        <td>B</td>
+        <td>Ka Kamavota</td>
+        <td>Ivan</td>
+        <td>Rosita</td>
+        <td>Stelio</td>
+        <td>14/04/24</td>
+      </tr>
+      <tr>
+        <td>C</td>
+        <td>Ka Kamavota</td>
+        <td>Jose</td>
+        <td>Sonia </td>
+        <td>Stelio</td>
+        <td>16/04/24</td>
+
+      </tr>
+    </tbody>
+  </table>
+ </div>
+</li>
+</ul>
+
 {% endblock content_main %}
 
+{% block js_main %}
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+  const collapsibles = document.querySelectorAll('.collapsible');
+  const instances = M.Collapsible.init(collapsibles, {});
+
+  collapsibles.forEach(collapsible => {
+      collapsible.addEventListener('click', function(event) {
+          const header = event.target.closest('.collapsible-header'); // Encontre o cabeçalho clicado
+          const content = header.nextElementSibling; // Encontre o conteúdo correspondente
+
+          if (header.classList.contains('active')) {
+              instances.close(content); // Feche o collapsible
+          } else {
+              instances.open(content); // Abra o collapsible
+          }
+      });
+  });
+});
+  </script>
+{% endblock js_main %}
+            

@@ -30,4 +30,5 @@ node_modules/
 .git/
 
 # Arquivos txt
-*.txt
+notas.txt
+Arquitetura.txt

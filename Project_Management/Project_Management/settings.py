@@ -1,6 +1,6 @@
 from pathlib import Path
 import os
-
+#rom Accounts.models import Usuario
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -26,9 +26,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_extensions',
     'Accounts',
     'Team',
-    
 ]
 
 
@@ -76,6 +76,7 @@ DATABASES = {
     }
 }
 
+#AUTH_USER_MODEL = 'Accounts.Usuario' 
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
@@ -112,10 +113,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = 'static/'
+STATICFILES_DIRS= [
+    BASE_DIR / 'static', 
+]
 
 LOGIN_REDIRECT_URL = '/team'
 LOGIN_URL = 'login'
-LOGOUT_REDIRECT_URL = 'login'
+#LOGOUT_REDIRECT_URL = 'login'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field

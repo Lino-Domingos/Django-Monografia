@@ -5,7 +5,10 @@ name = "pypi"
 
 [packages]
 django = "*"
-
+django-extensions = "*"
+pydotplus = "*"
+graphviz = "*"
+pygraphviz = "*"
 
 [dev-packages]
 

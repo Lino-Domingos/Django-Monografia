@@ -1,5 +1,5 @@
 from django import forms
-from django.contrib.auth.models import User# Importa o modelo correspondente aos usuarios
+from .models import Usuario# Importa o modelo correspondente aos usuarios
 from django.contrib.auth.forms import AuthenticationForm
 
 
@@ -19,7 +19,7 @@ class LoginForm(AuthenticationForm):
                                                                  }))
     
     class Meta:
-        model = User
+        model = Usuario
         fields = ['username', 'password']
 
     

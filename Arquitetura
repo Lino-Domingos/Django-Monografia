@@ -1,0 +1,29 @@
+App 1
+  Accounts
+  1. O registro de novos usuarios no sistema sera feito pelo administrador do django;
+  1.1 Gerir permissoes
+  1.2 Gerir Autorizacao 
+  1.3 Apagar usuarios 
+  
+
+
+  Messages Error Login
+    <!-- login.html -->
+                    {% if messages %}
+                        <ul class="list">
+                        {% for message in messages %}
+                            <li style="color: white;  font-family: 'Numans', sans-serif; text-decoration: underline;">{{ message }}</li>
+                        {% endfor %}
+                        </ul>
+                  
+                    {% endif %} 
+
+Missing logout 
+<form action="{% url 'logout' %}" method="POST">
+  {% csrf_token %}
+  {% if request.user.is_authenticated %}
+  <button type="submit">
+    Sair
+  </button>
+  {% endif %}
+</form>
