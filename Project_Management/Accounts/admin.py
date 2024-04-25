@@ -1,9 +1,8 @@
 from django.contrib import admin
-from .models import TipoUsuario, ASC, Usuario, Provincia, Direccao_Regional
+from django.contrib.auth.admin import UserAdmin
+from .models import Direccao_Regional, ASC, User
 
-# Registrar os modelos para serem exibidos na interface de administração
-admin.site.register(TipoUsuario)
-admin.site.register(ASC)
-admin.site.register(Usuario)
-admin.site.register(Provincia)
+
 admin.site.register(Direccao_Regional)
+admin.site.register(ASC)
+admin.site.register(User)

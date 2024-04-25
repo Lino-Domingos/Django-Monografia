@@ -1,32 +1,12 @@
-from typing import Any
+# Bibliotecas Necessarias 
 from django.db import models
-from django.contrib.auth.models import Group  # Importe o modelo Group do Djang
-from django.contrib.auth.models import AbstractUser
-from django.contrib.auth.models import AbstractUser, Permission
-from django.utils.translation import gettext as _
+from django.contrib.auth.models import AbstractUser, BaseUserManager
+ #------------------------------------------------------------------
 
 
-# Create your models here.
-
-# Classe para o tipo de User
-class TipoUsuario(models.Model):
-    nome = models.CharField(max_length = 40)
-
-    def __str__(self):
-            return self.nome
-    
-# Classe Provincia
-class Provincia(models.Model):
-    nome_provincia = models.CharField(max_length=50)
-
-    def __str__(self):
-        return self.nome_provincia
-    
-
-# Classe para o tipo de User
+# ASC
 class Direccao_Regional(models.Model):
      nome_direccao = models.CharField(max_length=10, default=1)
-     provincia = models.ForeignKey(Provincia, on_delete=models.CASCADE)
 
 
      def __str__(self):
@@ -41,18 +21,77 @@ class ASC(models.Model):
 
     def __str__(self):
         return self.nome
-    
-# Classe responsavel pelo usuario
-    
-class Usuario(AbstractUser):
-    tipo_usuario = models.ForeignKey(TipoUsuario, on_delete=models.CASCADE)
-    ASC = models.ForeignKey(ASC, on_delete=models.CASCADE)
 
-    # Adicione related_name para evitar colisões
-    groups = models.ManyToManyField(Group, verbose_name=_('groups'), blank=True, related_name='team_user_groups')
-    user_permissions = models.ManyToManyField(
-        Permission,
-        blank=True,
-        related_name='team_user_permissions',
-        help_text=_('Specific permissions for this user.'),
+
+# Classe responsavel pelo Customizacao do usuario
+class CustomUsuario(BaseUserManager):
+    def create_user(self, username, email, password=None, **extra_fields):
+        if not email:
+            raise ValueError('The Email field must be set')
+        email = self.normalize_email(email)
+        user = self.model(username=username.strip(), email=email, **extra_fields)
+        user.set_password(password)
+        user.save(using=self._db)
+        return user
+
+    def create_superuser(self, username, email, password=None, **extra_fields):
+        extra_fields.setdefault('is_staff', True)
+        extra_fields.setdefault('is_superuser', True)
+
+        if extra_fields.get('is_staff') is not True:
+            raise ValueError('Superuser must have is_staff=True.')
+        if extra_fields.get('is_superuser') is not True:
+            raise ValueError('Superuser must have is_superuser=True.')
+
+        return self.create_user(username, email, password, **extra_fields)
+
+
+# Classe responsavel do usuario
+class User(AbstractUser):
+    
+#Tupla dos tipos de usuarios: Primeira Coluna armazenamento na Base de dados
+    USER_TYPE_CHOICES = (
+        ('tecnico_campo', 'Operador de Campo'),
+        ('supervisor_campo', 'Supervisor de Campo'),
+        ('tecnico_office', 'Tecnico Office'),
+        ('supervisor_ASC', 'Supervisor ASC'),
+        ('supervisor_regiao', 'Supervisor da Região'),
+        ('direccao_central', 'Direcção Central'),
+
     )
+
+
+# New Field User_Type
+    user_type = models.CharField(max_length=20, choices=USER_TYPE_CHOICES)
+
+#Chave Estrangeira ASC
+    ASC = models.ForeignKey(ASC, on_delete=models.SET_NULL, null=True, blank=True)
+    
+
+    USERNAME_FIELD = 'username'
+    REQUIRED_FIELDS = ['email']
+
+
+#Function Inicializar os novos Campos
+    def is_tecnico_campo(self):
+        return self.user_type == 'tecnico_campo'
+
+    def is_supervisor_campo(self):
+        return self.user_type == 'supervisor_campo'
+
+    def is_tecnico_office(self):
+        return self.user_type == 'tecnico_office'
+    
+    def is_supervisor_ASC(self):
+        return self.user_type == 'supervisor_ASC'
+    
+    def is_supervisor_regiao(self):
+        return self.user_type == 'supervisor_regiao'
+    
+    def is_direccao_central(self):
+        return self.user_type == 'direccao_central'
+
+
+
+#Cria uma nova instancia CustomUsuario   
+    objects = CustomUsuario()

@@ -17,9 +17,13 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+# Authentication Model in Accounts Model
+
 
 # Application definition
 INSTALLED_APPS = [
+    "Accounts.apps.AccountsConfig",
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -27,9 +31,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_extensions',
-    'Accounts',
     'Team',
 ]
+
+AUTH_USER_MODEL = 'Accounts.User'
+
 
 
 MIDDLEWARE = [
@@ -116,6 +122,8 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS= [
     BASE_DIR / 'static', 
 ]
+
+
 
 LOGIN_REDIRECT_URL = '/team'
 LOGIN_URL = 'login'

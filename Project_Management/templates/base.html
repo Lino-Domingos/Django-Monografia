@@ -93,7 +93,7 @@
           <span class="tooltip">User</span>
         </li>
         
-        <li>
+        <li class="disabled">
           <a href="#">
             <i class="bx bx-cog"></i>
             <span class="links_name">Definições</span>
@@ -107,7 +107,8 @@
             <div class="name_job">
                 {% if request.user.is_authenticated %}
               <div class="name">
-                {{ request.user.first_name }}
+                {{ request.user.first_name }} 
+                {{ request.user.last_name }} 
                 {% else %}
                 None
               {% endif %}
