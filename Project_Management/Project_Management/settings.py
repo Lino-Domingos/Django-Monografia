@@ -31,7 +31,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_extensions',
+    
     'Team',
+    'materializecssform',
+    'Panel',
+    
 ]
 
 AUTH_USER_MODEL = 'Accounts.User'
@@ -125,7 +129,7 @@ STATICFILES_DIRS= [
 
 
 
-LOGIN_REDIRECT_URL = '/team'
+LOGIN_REDIRECT_URL = '/panel'
 LOGIN_URL = 'login'
 #LOGOUT_REDIRECT_URL = 'login'
 

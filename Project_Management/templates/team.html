@@ -1,7 +1,9 @@
 {% extends "base.html" %}
 
+{% load materializecss %}
+
 {% block title %}
-    Administração de Equipes
+    Equipes | Administração
 {% endblock %}
 
 {% block page_header %} 
@@ -124,21 +126,34 @@
   </form>           
  </div>
   </li>
-  
 </ul>
 
 <ul class="collapsible popout" data-collapsible="accordion" id="section-size">
 
-     <h6 class="col s4" style="font-weight: 450; margin-top: 25px; font-size: 1rem;"> 
-       Equipe Alteração 
-      </h6>
-    <div class="divider black"></div>
+  <h6 class="col s4" style="font-weight: 450; margin-top: 25px; font-size: 1rem;"> 
+    Equipe Update
+   </h6>
+ <div class="divider black"></div>
 
-  <li >
-    <div class="collapsible-header"><i class="bx bxs-pencil"></i>Alteração dados da equipe existente</div>
-    
-    <div class="collapsible-body"></div>
-  </li>
+<li >
+ <div class="collapsible-header"><i class="bx bx-sync"></i>Equipe Update</div>
+ 
+ <div class="collapsible-body"></div>
+</li>
+</ul>
+
+<ul class="collapsible popout" data-collapsible="accordion" id="section-size">
+
+  <h6 class="col s4" style="font-weight: 450; margin-top: 25px; font-size: 1rem;"> 
+    Equipe Delete 
+   </h6>
+ <div class="divider black"></div>
+
+<li >
+ <div class="collapsible-header"><i class="bx bxs-trash"></i>Equipe Delete</div>
+ 
+ <div class="collapsible-body"></div>
+</li>
 </ul>
 
 <ul class="collapsible popout" data-collapsible="accordion" id="section-size">

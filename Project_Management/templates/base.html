@@ -37,7 +37,7 @@
       </div>
       <ul class="nav-list">
         <li>
-          <a href="#">
+          <a href="{% url 'Panel:panel_main' %}">
             <i class="bx bx-grid-alt"></i>
             <span class="links_name">Painel</span>
           </a>
@@ -46,7 +46,7 @@
 
 
         <li>
-          <a href="#">
+          <a href="{% url 'Team:team_create' %}">
             <i class="bx bxs-group icon"></i>
             <span class="links_name">Equipe</span>
           </a>
@@ -54,7 +54,7 @@
         </li>
 
         <li>
-          <a href="#">
+          <a href="{% url 'Project:projectos' %}">
             <i class='bx bx-edit'></i>
             <span class="links_name">Projecto</span>
           </a>
@@ -107,8 +107,7 @@
             <div class="name_job">
                 {% if request.user.is_authenticated %}
               <div class="name">
-                {{ request.user.first_name }} 
-                {{ request.user.last_name }} 
+                {{ request.user.first_name }} {{ request.user.last_name }}
                 {% else %}
                 None
               {% endif %}
@@ -116,9 +115,16 @@
 
               {% if request.user.is_authenticated %}
               <div class="job">
-                {{ request.user.last_name }}
+
+                {# Por adicionar para outros usuers #}
+                {% if request.user.user_type == 'tecnico_campo'  or  request.user.user_type == 'supervisor_campo'%}
+                   
+                   {{ request.user.ASC }}
+  
+                {% endif %}
+
                 {% else %}
-                None
+                  None
               {% endif %}
             </div>
 

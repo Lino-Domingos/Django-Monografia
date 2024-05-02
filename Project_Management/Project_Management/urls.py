@@ -22,6 +22,12 @@ urlpatterns = [
     #path('logout/', auth_views.LogoutView.as_view(next_page='login'), name='logout'),
     path('logout/', include('Accounts.urls', namespace='logout')),
 
-    path('team', include('Team.urls', namespace='team')),
+    path('team', include('Team.urls')),
+
+    path('panel', include('Panel.urls')),
+
+    path('project', include('Project.urls')),
+
+
     
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
