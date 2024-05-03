@@ -1,7 +1,9 @@
 # Bibliotecas Necessarias 
 from django.db import models
 from django.contrib.auth.models import AbstractUser, BaseUserManager
- #------------------------------------------------------------------
+from django.contrib.auth.hashers import make_password 
+
+#------------------------------------------------------------------
 
 
 
@@ -40,9 +42,12 @@ class CustomUsuario(BaseUserManager):
             raise ValueError('The Email field must be set')
         email = self.normalize_email(email)
         user = self.model(username=username.strip(), email=email, **extra_fields)
-        user.set_password(password)
+
+        user.set_password(password)  
         user.save(using=self._db)
+
         return user
+
 
     def create_superuser(self, username, email, password=None, **extra_fields):
         extra_fields.setdefault('is_staff', True)
@@ -58,6 +63,9 @@ class CustomUsuario(BaseUserManager):
 
 # Classe responsavel do usuario
 class User(AbstractUser):
+
+    ASC = models.ForeignKey(ASC, on_delete=models.SET_NULL, null=True, blank=True)
+
     
 #Tupla dos tipos de usuarios: Primeira Coluna armazenamento na Base de dados
     USER_TYPE_CHOICES = (
@@ -74,8 +82,9 @@ class User(AbstractUser):
 # New Field User_Type
     user_type = models.CharField(max_length=20, choices=USER_TYPE_CHOICES)
 
+    #As classes devem estar dentro do modelo personalizado simplesmente
+
 #Chave Estrangeira ASC
-    ASC = models.ForeignKey(ASC, on_delete=models.SET_NULL, null=True, blank=True)
     
 
     USERNAME_FIELD = 'username'
