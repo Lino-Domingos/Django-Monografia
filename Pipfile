@@ -9,6 +9,7 @@ django-extensions = "*"
 pydotplus = "*"
 graphviz = "*"
 pygraphviz = "*"
+django-materializecss-form = "*"
 
 [dev-packages]
 
