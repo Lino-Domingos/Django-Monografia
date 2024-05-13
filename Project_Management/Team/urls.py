@@ -6,7 +6,7 @@ urlpatterns = [
     #path('detail/', DetailTeam.as_view(), name='team_list'),
      path('', Templateview.as_view(), name='team_show'),
     path('team-create/', CreateTeam.as_view(), name='team_create'),
-    path('<name:name>/', Detailview.as_view(), name='team_detail'),
+    path('team-detail/<slug:slug>/', Detailview.as_view(), name='team_detail'),
 ]
 
 

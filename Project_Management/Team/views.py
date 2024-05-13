@@ -67,18 +67,16 @@ class Templateview(TemplateView):
 class Detailview(DetailView):
     model = Team
     template_name = 'team_detail.html'
-    context_object_name = 'teams'
+    context_object_name = 'detail'
+
 
 
 #Metodo da CBV DetailView que funciona para pegar na url o filtro da TEMplateView
 # Pega o name como para parametro para apresentar no template
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        detail = Team.objects.filter(name=self.kwargs.get('name'))
-
-        context = {
-            'detail': detail
-        }
+        details = Team.objects.filter(slug=self.kwargs.get('slug'))
+        slug = self.kwargs['slug']
 
         return context
     

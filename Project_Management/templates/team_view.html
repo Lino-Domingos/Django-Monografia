@@ -42,18 +42,20 @@
 
     {% for equipe in  result %}
     <div class="col s4 m3">
+   <a  class="text-dark"  href="{% url 'Team:team_detail' slug=equipe.slug %}">
       <div class="card horizontal">
         <div class="card-image">
         </div>
         <div class="card-stacked">
           <div class="card-content">
-            <p>  <i class="bx bxs-group icon"></i> {{equipe.name}}</p>
+          <p> <i class="bx bxs-group icon"></i> {{equipe.name}} </p>
           </div>
-          <div class="card-action orange">
-            <a href="{url 'Team:team_detail'}" class="white-text">Team info ..</a>
+          <div class="card-action orange darken-3">
+            <a href="#" class="white-text">Team info ..</a>
           </div>
         </div>
       </div>
+    </a>
     </div>
     {% endfor %}
     {% else %}
@@ -64,18 +66,19 @@
 
     {% for equipe in equipes %}
     <div class="col s4 m3">
+      <a class="text-dark" href="{% url 'Team:team_detail' slug=equipe.slug %}">
       <div class="card horizontal">
-        <div class="card-image">
-        </div>
+       
         <div class="card-stacked">
           <div class="card-content">
-            <p>  <i class="bx bxs-group icon"></i> {{equipe.name}}</p>
+             <p>  {{equipe.name}}</p>
           </div>
-          <div class="card-action orange">
-            <a href="{url 'Team:team_detail' }" class="white-text">Team info ..</a>
+          <div class="card-action orange  darken-3">
+            <a href="" class="black-text">Team info ..</a>
           </div>
         </div>
       </div>
+    </a>
     </div>
     {% endfor %}
     
