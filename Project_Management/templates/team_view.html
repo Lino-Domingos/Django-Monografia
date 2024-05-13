@@ -13,12 +13,9 @@
 {% endblock page_header %}
 
 {% block content_main %}
-<br>
 <div class="row">
 
-  
-
-  <div class="col s6">
+  <div class="col s7">
     <form method="POST" action="{% url 'Team:team_show' %}" >
         {% csrf_token %}
         <div class="input-field col s6">
@@ -28,43 +25,35 @@
         </div>
       </form>
   </div>
-</div>
 
-<div class="row">
-  <div class="col s2">
-    <a href="{% url 'Team:team_show' %}" class="btn"> <i class="bx bxs-group icon"></i>Team</a>
+  <div class="col s3">
+    <a href="{% url 'Team:team_show' %}" class="btn"> <i class="bx bxs-group icon"></i>Listar Todas Equipes </a>
      
   </div>
 
   <div class="col s2">
-    <a href="{% url 'Team:team_create' %}" class="btn btn-primary"><i class="bx bxs-user"></i>
+    <a href="{% url 'Team:team_create' %}" class="btn orange"><i class="bx bxs-user"></i>
       Nova Equipe</a>
-
-
   </div>
 </div>
-
 
 <div class="row">
   {% if result %}
 
     {% for equipe in  result %}
     <div class="col s4 m3">
-        <div class="card">
-            <div class="card-image waves-effect waves-block waves-light">
-            </div>
-            <div class="card-content">
-              <span class="card-title activator grey-text text-darken-4">{{equipe.name}}<i class="material-icons right">more_vert</i></span>
-              <p><a href="#">Aterar Dados</a></p>
-            </div>
-            <div class="card-reveal">
-              <span class="card-title grey-text text-darken-4">{{equipe.name}}<i class="material-icons right">close</i></span>
-              <p class="black">{{equipe.membros.first_name}} {{equipe.membros.last_name}}</p>
-              <p>Membros: {{equipe.membros_1.first_name}} {{equipe_1.membros.last_name}}</p>
-              <p>Supervisor: {{equipe.supervisor.first_name}} {{equipe.supervisor.last_name}}</p>
-              <p>Date Created: {{equipe.date_created}}</p>   
-             </div>
+      <div class="card horizontal">
+        <div class="card-image">
+        </div>
+        <div class="card-stacked">
+          <div class="card-content">
+            <p>  <i class="bx bxs-group icon"></i> {{equipe.name}}</p>
           </div>
+          <div class="card-action orange">
+            <a href="{url 'Team:team_detail'}" class="white-text">Team info ..</a>
+          </div>
+        </div>
+      </div>
     </div>
     {% endfor %}
     {% else %}
@@ -75,28 +64,25 @@
 
     {% for equipe in equipes %}
     <div class="col s4 m3">
-        <div class="card">
-            <div class="card-image waves-effect waves-block waves-light">
-            </div>
-            <div class="card-content">
-              <span class="card-title activator grey-text text-darken-4">{{equipe.name}}<i class="material-icons right">more_vert</i></span>
-              <p><a href="#">Aterar Dados</a></p>
-            </div>
-            <div class="card-reveal">
-              <span class="card-title grey-text text-darken-4"><i class="material-icons right">close</i></span>
-              <p>{{equipe.membros.first_name}}</p>
-              <p>{{equipe.membros_1.first_name}}</p>
-              <p>Supervisor: {{equipe.supervisor.first_name}}</p>
-              <p>Date Created: {{equipe.date_created}}</p>   
-             </div>
+      <div class="card horizontal">
+        <div class="card-image">
+        </div>
+        <div class="card-stacked">
+          <div class="card-content">
+            <p>  <i class="bx bxs-group icon"></i> {{equipe.name}}</p>
           </div>
+          <div class="card-action orange">
+            <a href="{url 'Team:team_detail' }" class="white-text">Team info ..</a>
+          </div>
+        </div>
+      </div>
     </div>
     {% endfor %}
     
     {% endif %}
   </div>
  
-
+ 
 
 {% endblock content_main%}
 

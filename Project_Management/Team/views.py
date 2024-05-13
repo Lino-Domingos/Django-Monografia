@@ -1,6 +1,8 @@
+from typing import Any
 from .models import Team
 from django.views.generic.edit import CreateView
 from django.views.generic.base import TemplateView
+from django.views.generic.detail import DetailView
 from django.shortcuts import render
 from .forms import TeamModelForm
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -36,7 +38,7 @@ class CreateTeam(LoginRequiredMixin, CreateView):
 
 #View CBV usada para paginas estaticas, paginas onde nao existe a necessidade de adicionar a ogica de any form
 # Necessary: tempate name, context
-class Ex2View(TemplateView):
+class Templateview(TemplateView):
     
     template_name = "team_view.html"
 
@@ -60,6 +62,25 @@ class Ex2View(TemplateView):
             return render(request, self.template_name, context)
         else:
             return render(request, self.template_name, {})
+        
+
+class Detailview(DetailView):
+    model = Team
+    template_name = 'team_detail.html'
+    context_object_name = 'teams'
+
+
+#Metodo da CBV DetailView que funciona para pegar na url o filtro da TEMplateView
+# Pega o name como para parametro para apresentar no template
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        detail = Team.objects.filter(name=self.kwargs.get('name'))
+
+        context = {
+            'detail': detail
+        }
+
+        return context
     
     
     
