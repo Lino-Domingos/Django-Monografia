@@ -8,6 +8,8 @@ from .models import Direccao_Regional, ASC, Provincia, User
 # Registrar os outros modelos
 admin.site.register(Provincia)
 admin.site.register(Direccao_Regional)
+admin.site.register(ASC)
+
 
 
 class CustomUserAdmin(BaseUserAdmin):
@@ -21,7 +23,7 @@ class CustomUserAdmin(BaseUserAdmin):
         ('Area de Servico', {'fields': ('ASC',)}),
     )
     # Campos que serão exibidos na lista de usuários
-    list_display = ('username', 'first_name', 'last_name', 'is_staff', 'ASC')
+    list_display = ('username', 'first_name', 'last_name', 'user_type','is_staff', 'ASC')
 
 # Registrar o modelo de usuário personalizado com o UserAdmin personalizado
 admin.site.register(User, CustomUserAdmin)

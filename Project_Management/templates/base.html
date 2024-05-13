@@ -30,6 +30,7 @@
 
 
   <body>
+   
     <div class="sidebar">
       <div class="logo-details">
         <div class="logo_name">DPRP DGIS</div>
@@ -46,7 +47,7 @@
 
 
         <li>
-          <a href="{% url 'Team:team_create' %}">
+          <a href="{% url 'Team:team_show' %}">
             <i class="bx bxs-group icon"></i>
             <span class="links_name">Equipe</span>
           </a>
@@ -137,9 +138,10 @@
         </li>
       </ul>
     </div>
+    
     <section class="home-section">
         
-      <div class="navbar">
+      <div class="navbar-fixed">
         <nav class="white">
           <div class="nav-wrapper">
             <a href="#" class="brand-logo black-text">
@@ -150,7 +152,6 @@
             <!--<a href="#" class="brand-logo center black-text " style="font-size: 20px; font-weight:500;">Sistema de Gestão</a>-->
   
             <ul id="nav-mobile" class="right">
-              <li><a href="#" class="brown lighten-3 black-text">Versão: 1.0.0</a></li>
             </ul>
           </div>
         </nav>
@@ -179,8 +180,7 @@
              2024 Copyright- Direcção de Protecção de Receitas e Controle de Perdas - Departamento GIS 
            </div>  
         </div>           
-      </footer> 
-      
+      </footer>
     </section>
 
     <script src="{% static 'js/main.js' %}"></script>

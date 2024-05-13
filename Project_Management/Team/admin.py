@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import team
+from .models import Team
 
-admin.site.register(team)
+admin.site.register(Team)
 #admin.site.register(State)

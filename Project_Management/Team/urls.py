@@ -1,8 +1,12 @@
 from django.urls import path
-from . import views
+from .views import CreateTeam, Ex2View
 app_name = 'Team'
 
 urlpatterns = [
-    path('', views.Equipe, name="team_create"),
+    #path('detail/', DetailTeam.as_view(), name='team_list'),
+    path('ex2/', CreateTeam.as_view(), name='team_create'),
+    path('', Ex2View.as_view(), name='team_show'),
 ]
+
+
 

@@ -22,7 +22,7 @@ urlpatterns = [
     #path('logout/', auth_views.LogoutView.as_view(next_page='login'), name='logout'),
     path('logout/', include('Accounts.urls', namespace='logout')),
 
-    path('team', include('Team.urls')),
+    path('team/', include('Team.urls')),
 
     path('panel', include('Panel.urls')),
 

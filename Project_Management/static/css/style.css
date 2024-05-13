@@ -312,7 +312,7 @@ main li {
   padding: 5px;
   margin-right: 20px;
   margin-left: 15px;
-  background: #f0edea;
+  /**background: #f0edea;*/
   
 }
 
@@ -330,7 +330,7 @@ main li {
 }
 
 footer {
-  position:fixed;
+  position: fixed;
   margin-right: 20px;
   bottom: 0;
   width: 100%;
@@ -344,5 +344,4 @@ footer {
   font-weight: 500;
 
 }
-
 

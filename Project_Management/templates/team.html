@@ -19,200 +19,117 @@
     Equipe Nova
   </h6>
   <div class="divider black"></div>
-  <li >
+  <li>
 
     
       
     <div class="collapsible-header"><i class="bx bxs-user"></i> Integrantes da Equipe</div>
     
     <div class="collapsible-body">
-      <form class="card brown lighten-5" id="myForm1" action="">
+      {# comment #}   
 
-        <h6 style="font-weight: 500; margin-bottom: 12px; ">Localização da equipe</h6>
+      {#  Create View Team #}
+     
+      
 
-        <div class="row">
-            <div class="col s6">
-              <label class="black-text">Província</label>
-              <select class="browser-default">
-                <option value="" disabled selected>Selecione a Província</option>
-                <option value="1">Cidade de Maputo</option>
-                <option value="2">Maputo Provincia</option>
-                <option value="3">Gaza</option>
-                <option value="1">Inhambane</option>
-                <option value="2">Sofala</option>
-                <option value="3">Manica</option>
-                <option value="1">Tete</option>
-                <option value="2">Zambezia</option>
-                <option value="3">Nampula</option>
-                <option value="2">Cabo Delgado</option>
-                <option value="3">Niassa</option>
-              </select>
-            </div>
+    {% if messages %}
+        {% for message in messages %}
+           {% if 'info' in message.tags %}
+              <div class="card-panel  hoverable green lighten-2">{{message}}</div>
+           {% endif %}
 
-            <div class="col s6">
-              <label class="black-text">Direcção Regional</label>
-              <select class="browser-default">
-                <option value="" disabled selected> Selecione a Direcção Regional</option>
-                <option value="1">Option 1</option>
-                <option value="2">Option 2</option>
-                <option value="3">Option 3</option>
-              </select>
-            </div>
-        </div>
+           {% if 'error' in message.tags %}
+              <div class="card-panel  hoverable red lighten-2">{{message}}</div>
+           {% endif %}
 
-        <div class="row">
-            <div class=" col s6">
-              <label class="black-text">Área de Serviço ao Cliente</label>
-              <select class="browser-default">
-                <option value="" disabled selected>Selecione a ASC</option>
-                <option value="1">Option 1</option>
-                <option value="2">Option 2</option>
-                <option value="3">Option 3</option>
-              </select>
-            </div>
+        {% endfor %}
+    {% endif %}
+
+      <form class="card brown lighten-5" action="{% url 'Team:team_create' %}" method="POST" style="padding: 10px;">
+        {% csrf_token %}
         
+        <h6 style="font-weight: 500; margin-bottom: 5px; " id="myForm1">Dados da equipe</h6>
+        <div class="divider black"></div>
+    {#  Time Location #}
 
-        <div class="col s6">
-          <label class="black-text">Código da ASC</label>
-          <select class="browser-default ">
-            <option value="1" disabled selected >Ka Mavota</option>
-            <option value="2" disabled selected >Ka Maxaquene</option>
-            <option value="3" disabled selected >Ka Kampfumo</option>
-            <option value="4" disabled selected >Ka Mavota</option>
-
-          </select>
-        </div>
+    {# Linha 1*****#}
+    <div class="row">
+         <div class="col s6">
+          {{ form.name| materializecss}}
+         </div>
+         <div class="col s6">
+          {{form.asc.label_tag}}
+          {{form.asc}}
+         </div>             
     </div>
-       
-    <h6 style="font-weight: 500; margin-bottom: 12px; ">Membros da equipe</h6>
-    
+     
+
+{# Linha 2 *****#}
+
     <div class="row">
 
-         <div class=" input-field col s6">
-          <input placeholder="Digite o nome" id="first_name" type="text" class="validate">
-          <label for="first_name">Membro 1</label>
-         </div>
-         
-         <div class=" input-field col s6">
-          <input placeholder="Selecione o Supervisor Equipe" id="first_name" type="text" class="validate">
-          <label for="first_name">Supervisor</label>
-         </div>
-
-    </div>
-          
-    <div class="row">
-
-      <div class=" input-field col s6">
-        <input placeholder="Digite o nome" id="first_name" type="text" class="validate">
-        <label for="first_name">Membro 1</label>
+      <div class="col s6">
+        {{form.state| materializecss}}
        </div>
 
-       <div class=" input-field col s6">
-        <input placeholder="Selecione a Sigla" id="first_name" type="text" class="validate">
-        <label for="first_name">Sigla</label>
-       </div>
-
-    </div>
-
-    <div class="row">
-      <div class="col">
-        <button class="btn " type="submit"> Guardar </button>
+       <div class="col s6">
+        {{form.creator.label_tag}}
+        {{form.creator}}
       </div>
-      <div class="col">
-        <button class="btn " type="submit"> Limpar</button>
+      
+
+    </div>
+
+{#   Time Members #}
+
+{# Linha 3 *****#}
+<h6 style="font-weight: 500; margin-bottom: 5px; " id="myForm1">Membros da equipe</h6>
+<div class="divider black"></div>
+
+<div class="row">
+      <div class="col s6">
+        {{form.membros.label_tag}}
+        {{form.membros}}
+      </div>
+
+     
+      <div class="col s6">
+        {{form.supervisor.label_tag}}
+        {{form.supervisor}}
+      </div>
+         
+         
+    </div>
+
+  {# Linha 4 ***** #}
+
+    <!-- Outros campos e botões aqui -->
+     <br>
+
+         <div class="row">
+            <div class="col s6">
+              <button type="submit" class="waves-effect waves-light btn">Guardar</button>
+            </div>
+      </div>
       </div>
     </div>    
     
-  </form>           
+         </div>
+    </div>    
+    
+    </form>
+{# endcomment #}   
+
+
  </div>
   </li>
 </ul>
 
-<ul class="collapsible popout" data-collapsible="accordion" id="section-size">
-
-  <h6 class="col s4" style="font-weight: 450; margin-top: 25px; font-size: 1rem;"> 
-    Equipe Update
-   </h6>
- <div class="divider black"></div>
-
-<li >
- <div class="collapsible-header"><i class="bx bx-sync"></i>Equipe Update</div>
- 
- <div class="collapsible-body"></div>
-</li>
-</ul>
-
-<ul class="collapsible popout" data-collapsible="accordion" id="section-size">
-
-  <h6 class="col s4" style="font-weight: 450; margin-top: 25px; font-size: 1rem;"> 
-    Equipe Delete 
-   </h6>
- <div class="divider black"></div>
-
-<li >
- <div class="collapsible-header"><i class="bx bxs-trash"></i>Equipe Delete</div>
- 
- <div class="collapsible-body"></div>
-</li>
-</ul>
-
-<ul class="collapsible popout" data-collapsible="accordion" id="section-size">
-
-  <h6 class="col s4" style="font-weight: 450; margin-top: 25px; font-size: 1rem;"> 
-    Equipe Visualização
-   </h6>
- <div class="divider black"></div>
-
-<li>
- <div class="collapsible-header"><i class="bx bxs-show"></i>Visualização Equipes</div>
- 
- <div class="collapsible-body">
-
-  <table class="card brown lighten-5">
-    <thead>
-      <tr>
-          <th data-field="id">Sigla</th>
-          <th data-field="name">ASC</th>
-          <th data-field="price">Nome 1</th>
-          <th data-field="price">Nome 2</th>
-          <th data-field="price">Supervisor</th>
-          <th data-field="price">Date Create</th>
-
-      </tr>
-    </thead>
-
-    <tbody>
-      <tr>
-        <td>A</td>
-        <td>Ka Kamavota</td>
-        <td>Fernando</td>
-        <td>Narcia</td>
-        <td>Stelio</td>
-        <td>12/04/24</td>
-      </tr>
-
-      <tr>
-        <td>B</td>
-        <td>Ka Kamavota</td>
-        <td>Ivan</td>
-        <td>Rosita</td>
-        <td>Stelio</td>
-        <td>14/04/24</td>
-      </tr>
-      <tr>
-        <td>C</td>
-        <td>Ka Kamavota</td>
-        <td>Jose</td>
-        <td>Sonia </td>
-        <td>Stelio</td>
-        <td>16/04/24</td>
-
-      </tr>
-    </tbody>
-  </table>
- </div>
-</li>
-</ul>
+<div class="row">
+  <div class="col s1 right">
+    <a href="{% url 'Team:team_show' %}" class="btn orange black-text"><i class="material-icons">arrow_back</i> Voltar </a>
+  </div>
+</div>
 
 {% endblock content_main %}
 
