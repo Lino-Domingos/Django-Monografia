@@ -118,7 +118,7 @@
               <div class="job">
 
                 {# Por adicionar para outros usuers #}
-                {% if request.user.user_type == 'tecnico_campo'  or  request.user.user_type == 'supervisor_campo'%}
+                {% if request.user.user_type == 'tecnico_campo'  or  request.user.user_type == 'supervisor_campo' or request.user.user_type == 'direccao_central'  %}
                    
                    {{ request.user.ASC }}
   

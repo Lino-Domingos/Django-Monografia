@@ -1,6 +1,8 @@
 from typing import Any
+from django.http import HttpResponseRedirect
+from django.urls import reverse_lazy
 from .models import Team
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.views.generic.base import TemplateView
 from django.views.generic.detail import DetailView
 from django.shortcuts import render
@@ -64,22 +66,59 @@ class Templateview(TemplateView):
             return render(request, self.template_name, {})
         
 
-class Detailview(DetailView):
-    model = Team
-    template_name = 'team_detail.html'
-    context_object_name = 'detail'
+class Detailview(DetailView, DeleteView):
+  model = Team
+  template_name = 'team_detail.html'
+  context_object_name = 'detail'
 
+  def get_success_url(self):
+    return reverse_lazy('Team:team_show')  # Redirecionar para a lista de equipes após a exclusão
 
+  def get_context_data(self, **kwargs):
+    context = super().get_context_data(**kwargs)
+    details = Team.objects.filter(pk=self.kwargs.get('pk'))
+    context['detail'] = details.first()  # Assumindo que você precisa apenas de um detalhe
+    return context
 
-#Metodo da CBV DetailView que funciona para pegar na url o filtro da TEMplateView
-# Pega o name como para parametro para apresentar no template
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        details = Team.objects.filter(slug=self.kwargs.get('slug'))
-        slug = self.kwargs['slug']
+  def post(self, request, *args, **kwargs):
+    self.object = self.get_object()
 
-        return context
+    try:
+      self.object.delete()
+      return HttpResponseRedirect(self.get_success_url())
+    except Exception as e:
+      # Gerenciar erros de exclusão (por exemplo, restrições de chave estrangeira)
+      
+      erros = messages.error(request, f"Erro ao excluir a equipe: {e}")
+      context={
+         'erro':erros
+      }
+      return HttpResponseRedirect(self.get_object().get_absolute_url(), context)
+
     
+class Updateview(UpdateView):
+   model = Team
+   form_class = TeamModelForm
+   template_name = 'team_edit.html'
+
+   
+   def get_success_url(self,*args,**kwargs):
+        return reverse_lazy(
+            'Team:team_detail',
+             kwargs={'pk':self.kwargs.get('pk')}
+        )
+   
+   def form_valid(self, form):
+           form.save()
+           messages.add_message(self.request, messages.INFO, 'Equipe | Criada com sucesso')
+           #form.instance.creator = self.request.user
+           return super().form_valid(form)
+    
+   def form_invalid(self, form):
+        messages.add_message(self.request, messages.ERROR, 'Equipe | Erro Tente Novamente!')
+        return super().form_invalid(form)
+   
+
     
     
 

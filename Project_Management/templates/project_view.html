@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Projectos | Administração
+{% endblock %}
+
+{% block page_header %} 
+  Projectos
+{% endblock page_header %}
+
+{% block content_main %}
+ 
+{% endblock content_main %}
+
+
+
+{% block js_main %}
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+const collapsibles = document.querySelectorAll('.collapsible');
+const instances = M.Collapsible.init(collapsibles, {});
+
+collapsibles.forEach(collapsible => {
+    collapsible.addEventListener('click', function(event) {
+        const header = event.target.closest('.collapsible-header'); // Encontre o cabeçalho clicado
+        const content = header.nextElementSibling; // Encontre o conteúdo correspondente
+
+        if (header.classList.contains('active')) {
+            instances.close(content); // Feche o collapsible
+        } else {
+            instances.open(content); // Abra o collapsible
+        }
+    });
+});
+});
+</script>
+{% endblock js_main %}

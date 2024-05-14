@@ -26,13 +26,13 @@
       </form>
   </div>
 
-  <div class="col s3">
+  <div class="right">
     <a href="{% url 'Team:team_show' %}" class="btn"> <i class="bx bxs-group icon"></i>Listar Todas Equipes </a>
      
   </div>
 
-  <div class="col s2">
-    <a href="{% url 'Team:team_create' %}" class="btn orange"><i class="bx bxs-user"></i>
+  <div class="right">
+    <a href="{% url 'Team:team_create' %}" class="btn orange black-text"> <i class="material-icons">add_circle</i>
       Nova Equipe</a>
   </div>
 </div>
@@ -42,7 +42,7 @@
 
     {% for equipe in  result %}
     <div class="col s4 m3">
-   <a  class="text-dark"  href="{% url 'Team:team_detail' slug=equipe.slug %}">
+   <a  class="text-dark"  href="{% url 'Team:team_detail' pk=equipe.pk %}">
       <div class="card horizontal">
         <div class="card-image">
         </div>
@@ -50,7 +50,7 @@
           <div class="card-content">
           <p> <i class="bx bxs-group icon"></i> {{equipe.name}} </p>
           </div>
-          <div class="card-action orange darken-3">
+          <div class="card-action orange">
             <a href="#" class="white-text">Team info ..</a>
           </div>
         </div>
@@ -66,14 +66,14 @@
 
     {% for equipe in equipes %}
     <div class="col s4 m3">
-      <a class="text-dark" href="{% url 'Team:team_detail' slug=equipe.slug %}">
+      <a class="text-dark" href="{% url 'Team:team_detail' pk=equipe.pk %}">
       <div class="card horizontal">
        
         <div class="card-stacked">
           <div class="card-content">
              <p>  {{equipe.name}}</p>
           </div>
-          <div class="card-action orange  darken-3">
+          <div class="card-action orange">
             <a href="" class="black-text">Team info ..</a>
           </div>
         </div>

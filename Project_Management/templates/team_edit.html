@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% load materializecss %}
+
+{% block title %}
+    Equipes | Administração
+{% endblock %}
+
+{% block page_header %} 
+  Equipe
+{% endblock page_header %}
+
+{% block content_main %}
+
+
+{% if messages %}
+{% for message in messages %}
+   {% if 'info' in message.tags %}
+      <div class="card-panel  hoverable green lighten-2">{{message}}</div>
+   {% endif %}
+
+   {% if 'error' in message.tags %}
+      <div class="card-panel  hoverable red lighten-2">{{message}}</div>
+   {% endif %}
+
+{% endfor %}
+{% endif %}
+<form class="card brown lighten-5"  method="POST" style="padding: 10px;">
+  {% csrf_token %}
+  
+  <h6 style="font-weight: 500; margin-bottom: 5px; " id="myForm1">Dados da equipe</h6>
+  <div class="divider black"></div>
+{#  Time Location #}
+
+{# Linha 1*****#}
+<div class="row">
+   <div class="col s6">
+    {{ form.name| materializecss}}
+   </div>
+   <div class="col s6">
+    {{form.asc.label_tag}}
+    {{form.asc}}
+   </div>             
+</div>
+
+
+{# Linha 2 *****#}
+
+<div class="row">
+
+<div class="col s6">
+  {{form.state| materializecss}}
+ </div>
+
+ <div class="col s6">
+  {{form.creator.label_tag}}
+  {{form.creator}}
+</div>
+
+
+</div>
+
+{#   Time Members #}
+
+{# Linha 3 *****#}
+<h6 style="font-weight: 500; margin-bottom: 5px; " id="myForm1">Membros da equipe</h6>
+<div class="divider black"></div>
+
+<div class="row">
+<div class="col s6">
+  {{form.membros.label_tag}}
+  {{form.membros}}
+</div>
+
+
+<div class="col s6">
+  {{form.supervisor.label_tag}}
+  {{form.supervisor}}
+</div>
+   
+   
+</div>
+
+{# Linha 4 ***** #}
+
+<!-- Outros campos e botões aqui -->
+<br>
+
+   <div class="row">
+      <div class="col s6">
+        <button type="submit" class="waves-effect waves-light btn">Guardar</button>
+      </div>
+</div>
+</div>
+</div>    
+
+   </div>
+</div>    
+
+</form>
+{% endblock content_main %}
+
+{% block js_main %}
+ 
+{% endblock js_main %}
