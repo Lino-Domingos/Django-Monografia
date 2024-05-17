@@ -6,13 +6,14 @@ from django.db.models import Q
 from .forms import ProjectModelForm
 from django.urls import reverse_lazy
 from django.contrib import messages
+from django.shortcuts import render, redirect, get_object_or_404
 
 
 
 # 1. CBV templateView
 # Only need the template_name
 # The get_context_data to serve the context_data
-class Templateview(TemplateView, DeleteView):
+class Templateview(TemplateView):
 
     template_name = 'project_view.html'
 
@@ -23,15 +24,23 @@ class Templateview(TemplateView, DeleteView):
     # 3. Super
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        # context['project'] = Projecto.objects.all()
+        context['project'] = Projecto.objects.all()
         return context
     
     #Post 
     #This metodo was used because CBV Method is used to show all object
     #Method used because searching function
     #Search in LV name only
-    def post(self, request):
-        searching = request.POST.get('search', '')  # Use POST for search queries
+    def post(self, request, *args, **kwargs):
+        if 'search' in request.POST:
+            return self.search(request)
+        elif 'delete_id' in request.POST:
+            return self.delete(request, *args, **kwargs)
+        else:
+            return render(request, self.template_name, {})
+
+    def search(self, request):
+        searching = request.POST.get('search', '')
         if searching:
             results = Projecto.objects.filter(Q(LV__name__icontains=searching))
             if results:
@@ -41,6 +50,16 @@ class Templateview(TemplateView, DeleteView):
             return render(request, self.template_name, context)
         else:
             return render(request, self.template_name, {})
+    
+    def delete(self, request, *args, **kwargs):
+        project_id = request.POST.get('delete_id')
+        project = get_object_or_404(Projecto, pk=project_id)
+        try:
+            project.delete()
+            messages.success(request, 'Projecto deletado com sucesso.')
+        except Exception as e:
+            messages.error(request, f'Erro ao deletar projecto: {e}')
+        return redirect(reverse_lazy('project_show'))
     
 
 # 2. CBV CreateView

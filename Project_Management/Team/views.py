@@ -78,7 +78,7 @@ class CreateTeam(LoginRequiredMixin, CreateView):
 
 
 
-class Detailview(DetailView, DeleteView):
+class Detailview(DetailView):
   model = Team
   template_name = 'team_detail.html'
   context_object_name = 'detail'
@@ -122,7 +122,7 @@ class Updateview(UpdateView):
    
    def form_valid(self, form):
            form.save()
-           messages.add_message(self.request, messages.INFO, 'Equipe | Criada com sucesso')
+           messages.add_message(self.request, messages.INFO, 'Equipe | Actuaizado com sucesso')
            #form.instance.creator = self.request.user
            return super().form_valid(form)
     

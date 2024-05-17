@@ -67,67 +67,6 @@
               <td>{{projects.perfil}}</td>
                <td>
                 
-                <a href="{% url 'Team:team_edit' pk=detail.pk %}" class="waves-effect waves-light btn"><i class="material-icons" data-toggle="tooltip" title="Edit">edit</i></a>
-          
-                <a href="#modal2" class="waves-effect waves-light btn red modal-trigger"> <i class="material-icons" data-toggle="tooltip" title="Delete">delete</i></a>
-                   <!-- Modal Structure -->
-      
-              <div id="modal2" class="modal">
-                  <div class="modal-content orange">
-                      <div class="title">
-                      <h5>Team</h5>
-                  </div>
-      
-                   <blockquote>
-                      De certeza vai apagar permanentemente a equipe: {{detail.name}}?
-                      <p class="white-text">Sera permanente</p>
-                   </blockquote>
-      
-                  <form method="post" action = "{% url 'Team:team_detail' pk=detail.pk %}">
-                    {% csrf_token %}
-                      </div>
-                      <div class="modal-footer">
-                        <input type="submit" class='btn btn-danger red' value="Delete">
-                        <a href="{% url 'Team:team_detail' pk=detail.pk %}">Cancel</a>
-                      </div>
-      
-                    </form> 
-            
-                </div>
-
-
-               </td>
-            </tr>
-          </tbody>
-          {% endfor %}
-
-        </table>
-<!-- End SEction Result -->
-
-<!-- Error Section -->
-    {% else %}
-
-    {% if erro %}
-    <center>{{erro}}</center>
-     {% endif %}
-
-<!-- End Error Section  -->
-
-
-
-<!-- Queries Section -->
-
-       
-          {% for projects in project %}
-          <tbody>
-            <tr>
-              <td>{{projects.id}}</td>
-              <td>{{projects.lv_equipe_name}}</td>
-              <td>{{projects.equipe}}</td>
-              <td>{{projects.tipo}}</td>
-              <td>{{projects.perfil}}</td>
-              <td>
-
                 <a href="" class="waves-effect waves-light btn"><i class="material-icons" data-toggle="tooltip" title="Edit">edit</i></a>
           
                 <a href="#modal2" class="waves-effect waves-light btn red modal-trigger"> <i class="material-icons" data-toggle="tooltip" title="Delete">delete</i></a>
@@ -149,7 +88,68 @@
                       </div>
                       <div class="modal-footer">
                         <input type="submit" class='btn btn-danger red' value="Delete">
-                        <a href="">Cancel</a>
+                      </div>
+      
+                    </form> 
+            
+                </div>
+
+
+               </td>
+            </tr>
+          </tbody>
+          {% endfor %}
+
+      
+<!-- End SEction Result -->
+
+<!-- Error Section -->
+    {% else %}
+
+    {% if erro %}
+    <center>{{erro}}</center>
+     {% endif %}
+
+<!-- End Error Section  -->
+
+
+
+<!-- Queries Section -->
+       
+          {% for projects in project %}
+          <tbody>
+            <tr>
+              <td>{{projects.id}}</td>
+              <td>{{projects.lv_equipe_name}}</td>
+              <td>{{projects.equipe}}</td>
+              <td>{{projects.tipo}}</td>
+              <td>{{projects.perfil}}</td>
+              <td>
+
+                <a href="" class="waves-effect waves-light btn"><i class="material-icons" data-toggle="tooltip" title="Edit">edit</i></a>
+          
+                <a href="#modal2" class="waves-effect waves-light btn red modal-trigger"> <i class="material-icons" data-toggle="tooltip" title="Delete">delete</i></a>
+                   <!-- Modal Structure -->
+      
+              <div id="modal2" class="modal">
+                  <div class="modal-content orange">
+                      <div class="title">
+                      <h5>Project</h5>
+                  </div>
+      
+                   <blockquote>
+                      De certeza vai apagar permanentemente a equipe: {{ projects.id }}?
+                      <p class="white-text">Sera permanente</p>
+                   </blockquote>
+      
+                  <form method="post" action = "">
+                    {% csrf_token %}
+                      </div>
+                      <div class="modal-footer">
+                        <input type="hidden" name="delete_id" value="{{ project.id }}">
+                        <button type="submit" name="delete" class="btn red">Delete</button>
+
+                        <a class="btn" href="{% url 'Project:project_show' %}">Cancel</a>
                       </div>
       
                     </form> 
@@ -159,6 +159,7 @@
               </td>
             </tr>
           </tbody>
+        
           {% endfor %}
         
 {% endif %}
@@ -169,5 +170,10 @@
 
 
 {% block js_main %}
-
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+  var elems = document.querySelectorAll('.modal');
+  var instances = M.Modal.init(elems);
+});
+</script>
 {% endblock js_main %}
