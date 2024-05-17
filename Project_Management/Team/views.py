@@ -11,48 +11,31 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
 from django.db.models import Q
 
-# Create your views here.
 
-#Esta classe representa a criacao de Objectos (Euqipes nO Projecto)
-#E por meio desta classe que sao adicionadas objectos/Equipes na DB
-class CreateTeam(LoginRequiredMixin, CreateView):
-    model = Team
-    form_class = TeamModelForm
-    #fields =  ['name']
-    template_name = 'team.html'
-    #success_url = "/"
-     
-    #Metodo de rederecionamento da urls apos o processamento
-    def get_success_url(self):
-        return self.request.path
-    
 
-    def form_valid(self, form):
-        form.save()
-        messages.add_message(self.request, messages.INFO, 'Equipe | Criada com sucesso')
-        #form.instance.creator = self.request.user
-        return super().form_valid(form)
-    
-    def form_invalid(self, form):
-        messages.add_message(self.request, messages.ERROR, 'Equipe | Erro Tente Novamente!')
-        return super().form_invalid(form)
-    
 
-#View CBV usada para paginas estaticas, paginas onde nao existe a necessidade de adicionar a ogica de any form
-# Necessary: tempate name, context
+# 1. CBV templateView
+# Only need the template_name
+# The get_context_data to serve the context_data
 class Templateview(TemplateView):
     
     template_name = "team_view.html"
 
-#ContextData: mostra todas as equipes
+
+   #Context data
+    # 1. self (instance of the same classe) 
+    # 2. kwargs (kewords arguments): dictionary to acess all kewords passed in a function
+    # 3. Super
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['equipes'] = Team.objects.all()
         return context
     
-#Post Metodo: Metodo usado para permitir a query das equipes por nome
-#O metodo post foi usado aqui porque o cbv tempteview nao lida com soicitacoes Post apenas Get por isso a necessidade de adicao do Metodo Post
-
+    
+    #Post 
+    #This metodo was used because CBV Method is used to show all object
+    #Method used because searching function
+    #Search in LV name only 
     def post(self, request):
         searching = request.POST.get('search', '')  # Use POST for search queries
         if searching:
@@ -65,6 +48,35 @@ class Templateview(TemplateView):
         else:
             return render(request, self.template_name, {})
         
+
+# 2. CBV CreateView
+# Requirements: model, form_class and template_name.
+class CreateTeam(LoginRequiredMixin, CreateView):
+    model = Team
+    form_class = TeamModelForm
+    template_name = 'team.html'
+    
+     
+    #Metodo de rederecionamento da urls apos o processamento
+    def get_success_url(self):
+        return self.request.path
+    
+    #Form Valid
+    #Fuction to validate a form when form it;s save
+    def form_valid(self, form):
+        form.save()
+        messages.add_message(self.request, messages.INFO, 'Equipe | Criada com sucesso')
+        return super().form_valid(form)
+    
+
+    #Form invalid
+    #Fuction to show message when form it's invalidate
+    def form_invalid(self, form):
+        messages.add_message(self.request, messages.ERROR, 'Equipe | Erro Tente Novamente!')
+        return super().form_invalid(form)
+    
+
+
 
 class Detailview(DetailView, DeleteView):
   model = Team

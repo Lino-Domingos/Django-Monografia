@@ -9,29 +9,165 @@
 {% endblock page_header %}
 
 {% block content_main %}
- 
+ <!-- Row: 
+      1. Search Form -->
+      <div class="row">
+        <!--  Col size s7 grid (Materialize css ) -->
+        <div class="col s7">
+        <form method="POST" action="{% url 'Project:project_show' %}" >
+            {% csrf_token %}
+            <div class="input-field col s6">
+              <input id="search" type="search" name="search" required placeholder="Pesquise a equipe peo nome">
+              <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+              <i class="material-icons">close</i>
+            </div>
+          </form>
+      </div>
+
+      <!-- Bottom in Right Position -->
+      <div class="right">
+
+        <a href="{% url 'Project:project_show' %}" class="btn"> <i class="bx bxs-edit"></i>All Projects </a>
+
+        <a href="{% url 'Project:project_create' %}" class="btn orange black-text"> <i class="material-icons">add</i>
+          New Project</a>
+
+   </div>
+<!-- End Bottom Section  -->
+
+</div>
+<!-- End  -->
+
+<!-- Row Tabe-->
+      <div class="row">
+
+<!-- Result Section  -->
+
+        
+        <table>
+          <thead>
+            <tr>
+                <th>ID</th>
+                <th>Project Name</th>
+                <th>Project Team</th>
+                <th>Type</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+          </thead>
+          {% if result %}
+
+          {% for projects in  result %}
+          <tbody>
+            <tr>
+              <td>{{projects.id}}</td>
+              <td>{{projects.lv_equipe_name}}</td>
+              <td>{{projects.equipe}}</td>
+              <td>{{ projects.tipo}}</td>
+              <td>{{projects.perfil}}</td>
+               <td>
+                
+                <a href="{% url 'Team:team_edit' pk=detail.pk %}" class="waves-effect waves-light btn"><i class="material-icons" data-toggle="tooltip" title="Edit">edit</i></a>
+          
+                <a href="#modal2" class="waves-effect waves-light btn red modal-trigger"> <i class="material-icons" data-toggle="tooltip" title="Delete">delete</i></a>
+                   <!-- Modal Structure -->
+      
+              <div id="modal2" class="modal">
+                  <div class="modal-content orange">
+                      <div class="title">
+                      <h5>Team</h5>
+                  </div>
+      
+                   <blockquote>
+                      De certeza vai apagar permanentemente a equipe: {{detail.name}}?
+                      <p class="white-text">Sera permanente</p>
+                   </blockquote>
+      
+                  <form method="post" action = "{% url 'Team:team_detail' pk=detail.pk %}">
+                    {% csrf_token %}
+                      </div>
+                      <div class="modal-footer">
+                        <input type="submit" class='btn btn-danger red' value="Delete">
+                        <a href="{% url 'Team:team_detail' pk=detail.pk %}">Cancel</a>
+                      </div>
+      
+                    </form> 
+            
+                </div>
+
+
+               </td>
+            </tr>
+          </tbody>
+          {% endfor %}
+
+        </table>
+<!-- End SEction Result -->
+
+<!-- Error Section -->
+    {% else %}
+
+    {% if erro %}
+    <center>{{erro}}</center>
+     {% endif %}
+
+<!-- End Error Section  -->
+
+
+
+<!-- Queries Section -->
+
+       
+          {% for projects in project %}
+          <tbody>
+            <tr>
+              <td>{{projects.id}}</td>
+              <td>{{projects.lv_equipe_name}}</td>
+              <td>{{projects.equipe}}</td>
+              <td>{{projects.tipo}}</td>
+              <td>{{projects.perfil}}</td>
+              <td>
+
+                <a href="" class="waves-effect waves-light btn"><i class="material-icons" data-toggle="tooltip" title="Edit">edit</i></a>
+          
+                <a href="#modal2" class="waves-effect waves-light btn red modal-trigger"> <i class="material-icons" data-toggle="tooltip" title="Delete">delete</i></a>
+                   <!-- Modal Structure -->
+      
+              <div id="modal2" class="modal">
+                  <div class="modal-content orange">
+                      <div class="title">
+                      <h5>Team</h5>
+                  </div>
+      
+                   <blockquote>
+                      De certeza vai apagar permanentemente a equipe: {{detail.name}}?
+                      <p class="white-text">Sera permanente</p>
+                   </blockquote>
+      
+                  <form method="post" action = "">
+                    {% csrf_token %}
+                      </div>
+                      <div class="modal-footer">
+                        <input type="submit" class='btn btn-danger red' value="Delete">
+                        <a href="">Cancel</a>
+                      </div>
+      
+                    </form> 
+            
+                </div>
+
+              </td>
+            </tr>
+          </tbody>
+          {% endfor %}
+        
+{% endif %}
+</div>
+<!-- End Queries Section Result  -->
 {% endblock content_main %}
 
 
 
 {% block js_main %}
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-const collapsibles = document.querySelectorAll('.collapsible');
-const instances = M.Collapsible.init(collapsibles, {});
 
-collapsibles.forEach(collapsible => {
-    collapsible.addEventListener('click', function(event) {
-        const header = event.target.closest('.collapsible-header'); // Encontre o cabeçalho clicado
-        const content = header.nextElementSibling; // Encontre o conteúdo correspondente
-
-        if (header.classList.contains('active')) {
-            instances.close(content); // Feche o collapsible
-        } else {
-            instances.open(content); // Abra o collapsible
-        }
-    });
-});
-});
-</script>
 {% endblock js_main %}

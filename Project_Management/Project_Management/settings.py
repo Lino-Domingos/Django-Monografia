@@ -35,7 +35,9 @@ INSTALLED_APPS = [
     'Team',
     'materializecssform',
     'Panel',
-    'Project'
+    'Project',
+ 
+    
     
 ]
 

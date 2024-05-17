@@ -7,29 +7,29 @@ from Team.models import Team
 class Estado(models.Model):
 
     Estado_TYPE = (
-        ('pendente', 'Pendente'),
-        ('aprovado', 'Aprovado'),
-        ('submetido', 'Submetido'),
-        ('reijeitado', 'Reijeitado'),
+        ('Pendente', 'Pendente'),
+        ('Aprovado', 'Aprovado'),
+        ('Submetido', 'Submetido'),
+        ('Reijeitado', 'Reijeitado'),
     )
 
     status = models.CharField(max_length=15, choices=Estado_TYPE, unique=True)
     
     def is_pendente(self):
-        return self.status == 'pendente'
+        return self.status == 'Pendente'
     
     def is_aprovado(self):
-        return self.status == 'aprovado'
+        return self.status == 'Aprovado'
     
     def is_submetido(self):
-        return self.status == 'submetido'
+        return self.status == 'Submetido'
     
     def is_reijeitado (self):
-        return self.status == 'reijeitado'
+        return self.status == 'Reijeitado'
     
 
     def __str__(self):
-        return f'Estado - {self.status}'
+        return f'{self.status}'
     
 
 class PT(models.Model):
@@ -62,28 +62,28 @@ class LV_Feeder(models.Model):
 class Project_type(models.Model):
 
     Project_TYPE = (
-        ('project_new', 'Projecto - Novo Levantamento'),
-        ('project_feeder', 'Projecto - Novo PT Feeder '),
-        ('project_correcao', 'Projecto - Levantamento Correcao'),
-        ('project_pl', 'Projecto - Premisses Locked'),
+        ('Novo Levantamento', 'Novo Levantamento'),
+        ('Novo PT Feeder ', 'Novo PT Feeder '),
+        ('Levantamento Correction', 'Levantamento Correction'),
+        ('Premisses Locked', ' Premisses Locked'),
     )
 
     type = models.CharField(max_length=30, choices=Project_TYPE, unique=True)
 
     def is_project_new(self):
-        return self.type == 'project_new'
+        return self.type == ' Novo Levantamento'
 
     def is_project_feeder(self):
-        return self.type == 'project_feeder'
+        return self.type == 'Novo PT Feeder'
 
     def is_project_correcao(self):
-        return self.type == 'project_correcao'
+        return self.type == 'Levantamento Correction'
     
     def is_project_pl(self):
-        return self.type == 'project_pl'
+        return self.type == 'Premisses Locked'
     
     def __str__(self):
-        return self.type
+        return self.get_type_display()
 
 
 class Projecto(models.Model):
@@ -92,13 +92,14 @@ class Projecto(models.Model):
     LV = models.ForeignKey(LV_Feeder, on_delete=models.CASCADE, default=1)
     perfil = models.ForeignKey(Estado, on_delete=models.CASCADE, default=1)
 
+
+    #Metodo para juntar dois campos de fields
+    @property
+    def lv_equipe_name(self):
+        return f'{self.LV} - {self.equipe}'
+
     def __str__(self):
-        return f'{self.LV} {self.equipe}'
-
-
-
-
-
+        return self.lv_equipe_name
 
 
     

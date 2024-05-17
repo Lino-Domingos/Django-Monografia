@@ -49,35 +49,36 @@
         <td>{{detail.supervisor.first_name}}</td>
         <td>{{detail.creator}}</td>
         <td>{{detail.date_created}}</td>
+
         <td>
-
+                <!-- Bottom Edit/Update Data -->
            <a href="{% url 'Team:team_edit' pk=detail.pk %}" class="waves-effect waves-light btn"><i class="material-icons" data-toggle="tooltip" title="Edit">edit</i></a>
-           
-
-          &nbsp;&nbsp;
+          
           <a href="#modal2" class="waves-effect waves-light btn red modal-trigger"> <i class="material-icons" data-toggle="tooltip" title="Delete">delete</i></a>
              <!-- Modal Structure -->
 
-  <div id="modal2" class="modal">
-    <div class="modal-content orange">
-      <div class="title">
-      <h5>Team</h5>
-      </div>
-      <blockquote>
-      De certeza vai apagar permanentemente a equipe: {{detail.name}}?
-      <p class="white-text">Sera permanente</p>
-       </blockquote>
-      <form method="post" action = "{% url 'Team:team_detail' pk=detail.pk %}">
-        {% csrf_token %}
-      </div>
-      <div class="modal-footer">
-        <input type="submit" class='btn btn-danger red' value="Delete">
-        <a href="{% url 'Team:team_detail' pk=detail.pk %}">Cancel</a>
+        <div id="modal2" class="modal">
+            <div class="modal-content orange">
+                <div class="title">
+                <h5>Team</h5>
+            </div>
 
-      </div>
-      </form> 
+             <blockquote>
+                De certeza vai apagar permanentemente a equipe: {{detail.name}}?
+                <p class="white-text">Sera permanente</p>
+             </blockquote>
 
-    </div>
+            <form method="post" action = "{% url 'Team:team_detail' pk=detail.pk %}">
+              {% csrf_token %}
+                </div>
+                <div class="modal-footer">
+                  <input type="submit" class='btn btn-danger red' value="Delete">
+                  <a href="{% url 'Team:team_detail' pk=detail.pk %}">Cancel</a>
+                </div>
+
+              </form> 
+      
+          </div>
 
   </div>
 

@@ -218,7 +218,7 @@
   background: none;
 }
 .home-section{
-  position: relative;
+  position: fixed;
   background: #E4E9F7;
   min-height: 100vh;
   top: 0;

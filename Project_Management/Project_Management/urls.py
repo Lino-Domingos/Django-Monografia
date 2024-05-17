@@ -24,9 +24,9 @@ urlpatterns = [
 
     path('team/', include('Team.urls')),
 
-    path('panel', include('Panel.urls')),
+    path('panel/', include('Panel.urls')),
 
-    path('project', include('Project.urls')),
+    path('project/', include('Project.urls')),
 
 
     

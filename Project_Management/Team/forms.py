@@ -1,10 +1,8 @@
-#Bibliotecas importantes
-
+# Library requires
 from django import forms
 from .models import Team
 
 #---------------------------------------------------------
-
 class TeamModelForm(forms.ModelForm):
     class Meta:
         model = Team

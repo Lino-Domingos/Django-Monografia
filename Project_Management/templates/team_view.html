@@ -13,31 +13,42 @@
 {% endblock page_header %}
 
 {% block content_main %}
-<div class="row">
 
-  <div class="col s7">
-    <form method="POST" action="{% url 'Team:team_show' %}" >
-        {% csrf_token %}
-        <div class="input-field col s6">
-          <input id="search" type="search" name="search" required placeholder="Pesquise a equipe peo nome">
-          <label class="label-icon" for="search"><i class="material-icons">search</i></label>
-          <i class="material-icons">close</i>
-        </div>
-      </form>
-  </div>
+ <!-- Row: 
+      1. Search Form -->
+     <div class="row">
+         <!--  Col size s7 grid (Materialize css ) -->
+         <div class="col s7">
+         <form method="POST" action="{% url 'Team:team_show' %}" >
+             {% csrf_token %}
+             <div class="input-field col s6">
+               <input id="search" type="search" name="search" required placeholder="Pesquise a equipe peo nome">
+               <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+               <i class="material-icons">close</i>
+             </div>
+           </form>
+       </div>
+ 
+<!-- Bottom in Right Position -->
+       <div class="right">
 
-  <div class="right">
-    <a href="{% url 'Team:team_show' %}" class="btn"> <i class="bx bxs-group icon"></i>Listar Todas Equipes </a>
-     
-  </div>
+            <a href="{% url 'Team:team_show' %}" class="btn"> <i class="bx bxs-group icon"></i>Listar Todas Equipes </a>
+    
+            <a href="{% url 'Team:team_create' %}" class="btn orange black-text"> <i class="material-icons">add_circle</i>
+              Nova Equipe</a>
 
-  <div class="right">
-    <a href="{% url 'Team:team_create' %}" class="btn orange black-text"> <i class="material-icons">add_circle</i>
-      Nova Equipe</a>
-  </div>
-</div>
+       </div>
+<!-- End Bottom Section  -->
 
-<div class="row">
+    </div>
+<!-- End  -->
+
+
+
+<!-- Row CARD -->
+       <div class="row">
+
+<!-- Result Section  -->
   {% if result %}
 
     {% for equipe in  result %}
@@ -58,12 +69,18 @@
     </a>
     </div>
     {% endfor %}
+<!-- End SEction Result -->
+
+<!-- Error Section -->
     {% else %}
 
     {% if erro %}
     <center>{{erro}}</center>
      {% endif %}
+<!-- End Error Section  -->
 
+
+<!-- Queries Section -->
     {% for equipe in equipes %}
     <div class="col s4 m3">
       <a class="text-dark" href="{% url 'Team:team_detail' pk=equipe.pk %}">
@@ -83,7 +100,10 @@
     {% endfor %}
     
     {% endif %}
-  </div>
+<!-- End Queries Section Result  -->
+         </div>
+
+ <!-- END Row Card --> 
  
  
 

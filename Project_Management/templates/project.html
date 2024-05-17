@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 
+{% load materializecss %}
+
 {% block title %}
     Projectos | Administração
 {% endblock %}
@@ -9,7 +11,40 @@
 {% endblock page_header %}
 
 {% block content_main %}
- 
+   
+    <div class="divider black"></div>
+<!-- Form Body section -->
+      {% if messages %}
+          {% for message in messages %}
+             {% if 'info' in message.tags %}
+                <div class="card-panel  hoverable green lighten-2">{{message}}</div>
+             {% endif %}
+  
+             {% if 'error' in message.tags %}
+                <div class="card-panel  hoverable red lighten-2">{{message}}</div>
+             {% endif %}
+  
+          {% endfor %}
+      {% endif %}
+
+        <form class="card brown lighten-5" action="{% url 'Project:project_create' %}" method="POST" style="padding: 10px;">
+          {% csrf_token %}
+          
+          <h6 style="font-weight: 500; margin-bottom: 5px; " id="myForm1">Dados do Projecto</h6>
+          <div class="divider black"></div>
+
+          {{form}}
+          
+  <br>
+        <div class="row">
+            
+            <div class="col s6">
+              <button type="submit" class="waves-effect waves-light btn">Guardar</button>
+            </div>
+      </div>
+      </form>  
+  
+
 {% endblock content_main %}
 
 
