@@ -149,11 +149,15 @@
             <a href="#" class="brand-logo black-text">
                 <img src="{% static 'img/Edm_logo.ico' %}" alt="Logo" height="40px" width="40px" style="margin-left: 12px; margin-top: 10px; align-content: center;">
             </a>
-  
+              
+           
   
             <!--<a href="#" class="brand-logo center black-text " style="font-size: 20px; font-weight:500;">Sistema de Gestão</a>-->
   
-            <ul id="nav-mobile" class="right">
+            <ul id="nav-mobile" class="center">
+              <a href="#" class="black-text">
+               Sistema de Gestão de Cadastramento 
+              </a>
             </ul>
           </div>
         </nav>
@@ -175,14 +179,10 @@
         {% endblock content_main %}
       </div>
 
-      <footer class = "page-footer grey">   
-        <div class = "footer-copyright orange lighten-1 grey darken-text">  
-           <div class = "container center black-text ">  
-            <i class="material-icons" >copyright</i>
-             2024 Copyright- Direcção de Protecção de Receitas e Controle de Perdas - Departamento GIS 
-           </div>  
-        </div>           
-      </footer>
+
+      {% block footer %} 
+
+      {% endblock footer %}
       
     </section>
 

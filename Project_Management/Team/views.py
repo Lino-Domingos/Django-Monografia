@@ -9,6 +9,7 @@ from django.shortcuts import render
 from .forms import TeamModelForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Q
 
 
@@ -20,7 +21,7 @@ from django.db.models import Q
 class Templateview(TemplateView):
     
     template_name = "team_view.html"
-
+    
 
    #Context data
     # 1. self (instance of the same classe) 
@@ -28,7 +29,21 @@ class Templateview(TemplateView):
     # 3. Super
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['equipes'] = Team.objects.all()
+        all_teams = Team.objects.all()
+        
+        # Pagination logic
+        page = self.request.GET.get('page', 1)
+        paginator = Paginator(all_teams, 8)  # Show 10 teams per page
+        
+        try:
+            teams = paginator.page(page)
+        except PageNotAnInteger:
+            teams = paginator.page(1)
+        except EmptyPage:
+            teams = paginator.page(paginator.num_pages)
+
+        
+        context['equipes'] = teams
         return context
     
     
@@ -114,12 +129,15 @@ class Updateview(UpdateView):
    template_name = 'team_edit.html'
 
    
-   def get_success_url(self,*args,**kwargs):
-        return reverse_lazy(
-            'Team:team_detail',
-             kwargs={'pk':self.kwargs.get('pk')}
-        )
+  #  def get_success_url(self,*args,**kwargs):
+  #       return reverse_lazy(
+  #           'Team:team_detail',
+  #            kwargs={'pk':self.kwargs.get('pk')}
+  #       )
    
+   def get_success_url(self):
+        return self.request.path
+
    def form_valid(self, form):
            form.save()
            messages.add_message(self.request, messages.INFO, 'Equipe | Actuaizado com sucesso')

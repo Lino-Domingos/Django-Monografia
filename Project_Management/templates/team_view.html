@@ -21,12 +21,14 @@
          <div class="col s7">
          <form method="POST" action="{% url 'Team:team_show' %}" >
              {% csrf_token %}
-             <div class="input-field col s6">
-               <input id="search" type="search" name="search" required placeholder="Pesquise a equipe peo nome">
-               <label class="label-icon" for="search"><i class="material-icons">search</i></label>
-               <i class="material-icons">close</i>
+             <div class="input-field col s5">
+              <!-- <button type="submit"><i class="material-icons">search</i></button> -->
+               <input id="search" type="search" name="search" required placeholder="Pesquise a equipe pelo nome">
+               <!-- <label class="label-icon" for="search"><i class="material-icons">search</i></label> -->
+               <!-- <i class="material-icons">close</i> -->
              </div>
-           </form>
+             
+          </form>
        </div>
  
 <!-- Bottom in Right Position -->
@@ -104,10 +106,34 @@
          </div>
 
  <!-- END Row Card --> 
- 
+ <ul class="pagination center orange-text" style="font-weight: bold">
+  {% if equipes.has_previous %}
+   <li class="waves-effect"><a href="?page={{ equipes.previous_page_number }}"><i class="material-icons text-custom-color">chevron_left</i></a></li>
+ {% else %}
+   <li class="disabled"><a><i class="material-icons">chevron_left</i></a></li>
+ {% endif %}
+
+ <span class="current text-custom-color">
+   Pagina {{ equipes.number }} de {{ equipes.paginator.num_pages }}.
+ </span>
+
+ {% if equipes.has_next %}
+   <li class="waves-effect"><a href="?page={{ equipes.next_page_number }}"><i class="material-icons text-custom-color">chevron_right</i></a></li>
+ {% else %}
+   <li class="disabled"><a><i class="material-icons">chevron_right</i></a></li>
+ {% endif %}
+</ul>
+
  
 
-{% endblock content_main%}
+{% endblock content_main %}
+
+
+{% block footer %} 
+
+
+{% endblock footer %}
+
 
 
 

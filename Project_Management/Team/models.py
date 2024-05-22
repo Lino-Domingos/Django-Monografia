@@ -1,11 +1,14 @@
-# Bibliotecas Necessarias
+# Lib Section 
+# Only for Libs
 from django.db import models
 from Accounts.models import ASC, User
 from django.utils import timezone
 from django.template.defaultfilters import slugify
-#---------------------------------------------------
+#-----------------------------------------------------------------------------
 
-  
+
+# Team model:
+# 
 class Team(models.Model):
     name = models.CharField(max_length=100, unique=True)
     slug = models.SlugField(default="", null=False)

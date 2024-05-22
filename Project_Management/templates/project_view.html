@@ -39,141 +39,121 @@
 <!-- End  -->
 
 <!-- Row Tabe-->
-      <div class="row">
+<div class="row">
+  <table>
+      <thead>
+          <tr>
+              <th>ID</th>
+              <th>Project Name</th>
+              <th>Project Team</th>
+              <th>Type</th>
+              <th>Status</th>
+              <th>Actions</th>
+          </tr>
+      </thead>
 
-<!-- Result Section  -->
-
-        
-        <table>
-          <thead>
-            <tr>
-                <th>ID</th>
-                <th>Project Name</th>
-                <th>Project Team</th>
-                <th>Type</th>
-                <th>Status</th>
-                <th>Actions</th>
-            </tr>
-          </thead>
+      <tbody>
           {% if result %}
-
-          {% for projects in  result %}
-          <tbody>
-            <tr>
-              <td>{{projects.id}}</td>
-              <td>{{projects.lv_equipe_name}}</td>
-              <td>{{projects.equipe}}</td>
-              <td>{{ projects.tipo}}</td>
-              <td>{{projects.perfil}}</td>
-               <td>
-                
-                <a href="" class="waves-effect waves-light btn"><i class="material-icons" data-toggle="tooltip" title="Edit">edit</i></a>
-          
-                <a href="#modal2" class="waves-effect waves-light btn red modal-trigger"> <i class="material-icons" data-toggle="tooltip" title="Delete">delete</i></a>
-                   <!-- Modal Structure -->
-      
-              <div id="modal2" class="modal">
-                  <div class="modal-content orange">
-                      <div class="title">
-                      <h5>Team</h5>
-                  </div>
-      
-                   <blockquote>
-                      De certeza vai apagar permanentemente a equipe: {{detail.name}}?
-                      <p class="white-text">Sera permanente</p>
-                   </blockquote>
-      
-                  <form method="post" action = "">
-                    {% csrf_token %}
-                      </div>
-                      <div class="modal-footer">
-                        <input type="submit" class='btn btn-danger red' value="Delete">
-                      </div>
-      
-                    </form> 
-            
-                </div>
-
-
-               </td>
-            </tr>
-          </tbody>
-          {% endfor %}
-
-      
-<!-- End SEction Result -->
-
-<!-- Error Section -->
-    {% else %}
-
-    {% if erro %}
-    <center>{{erro}}</center>
-     {% endif %}
-
-<!-- End Error Section  -->
-
-
-
-<!-- Queries Section -->
-       
-          {% for projects in project %}
-          <tbody>
-            <tr>
-              <td>{{projects.id}}</td>
-              <td>{{projects.lv_equipe_name}}</td>
-              <td>{{projects.equipe}}</td>
-              <td>{{projects.tipo}}</td>
-              <td>{{projects.perfil}}</td>
-              <td>
-
-                <a href="" class="waves-effect waves-light btn"><i class="material-icons" data-toggle="tooltip" title="Edit">edit</i></a>
-          
-                <a href="#modal2" class="waves-effect waves-light btn red modal-trigger"> <i class="material-icons" data-toggle="tooltip" title="Delete">delete</i></a>
-                   <!-- Modal Structure -->
-      
-              <div id="modal2" class="modal">
-                  <div class="modal-content orange">
-                      <div class="title">
-                      <h5>Project</h5>
-                  </div>
-      
-                   <blockquote>
-                      De certeza vai apagar permanentemente a equipe: {{ projects.id }}?
-                      <p class="white-text">Sera permanente</p>
-                   </blockquote>
-      
-                  <form method="post" action = "">
-                    {% csrf_token %}
-                      </div>
-                      <div class="modal-footer">
-                        <input type="hidden" name="delete_id" value="{{ project.id }}">
-                        <button type="submit" name="delete" class="btn red">Delete</button>
-
-                        <a class="btn" href="{% url 'Project:project_show' %}">Cancel</a>
-                      </div>
-      
-                    </form> 
-            
-                </div>
-
-              </td>
-            </tr>
-          </tbody>
-        
-          {% endfor %}
-        
-{% endif %}
+              {% for projects in result %}
+                  <tr>
+                      <td>{{projects.id}}</td>
+                      <td>{{projects.lv_equipe_name}}</td>
+                      <td>{{projects.equipe}}</td>
+                      <td>{{ projects.tipo }}</td>
+                      <td>{{projects.perfil}}</td>
+                      <td>
+                          <a href="" class="waves-effect waves-light btn"><i class="material-icons" data-toggle="tooltip" title="Edit">edit</i></a>
+                          <a href="#modal2" class="waves-effect waves-light btn red modal-trigger"> <i class="material-icons" data-toggle="tooltip" title="Delete">delete</i></a>
+                          <!-- Modal Structure -->
+                          <div id="modal2" class="modal">
+                              <div class="modal-content orange">
+                                  <div class="title">
+                                      <h5>Team</h5>
+                                  </div>
+                                  <blockquote>
+                                      De certeza vai apagar permanentemente a equipe: {{detail.name}}?
+                                      <p class="white-text">Sera permanente</p>
+                                  </blockquote>
+                                  <form method="post" action="">
+                                      {% csrf_token %}
+                                  </form>
+                              </div>
+                              <div class="modal-footer">
+                                  <input type="submit" class='btn btn-danger red' value="Delete">
+                              </div>
+                          </div>
+                      </td>
+                  </tr>
+              {% endfor %}
+          {% else %}
+              {% if erro %}
+                  <tr>
+                      <td colspan="6"><center>{{erro}}</center></td>
+                  </tr>
+              {% endif %}
+              {% for projects in project %}
+                  <tr>
+                      <td>{{projects.id}}</td>
+                      <td>{{projects.lv_equipe_name}}</td>
+                      <td>{{projects.equipe}}</td>
+                      <td>{{projects.tipo}}</td>
+                      <td>{{projects.perfil}}</td>
+                      <td>
+                          <a href="" class="waves-effect waves-light btn"><i class="material-icons" data-toggle="tooltip" title="Edit">edit</i></a>
+                          <a href="#modal2" class="waves-effect waves-light btn red modal-trigger"> <i class="material-icons" data-toggle="tooltip" title="Delete">delete</i></a>
+                          <!-- Modal Structure -->
+                          <div id="modal2" class="modal">
+                              <div class="modal-content orange">
+                                  <div class="title">
+                                      <h5>Project</h5>
+                                  </div>
+                                  <blockquote>
+                                      De certeza vai apagar permanentemente a equipe: {{ projects.id }}?
+                                      <p class="white-text">Sera permanente</p>
+                                  </blockquote>
+                                  <form method="post" action="">
+                                      {% csrf_token %}
+                                      <input type="hidden" name="delete_id" value="{{ project.id }}">
+                                      <button type="submit" name="delete" class="btn red">Delete</button>
+                                      <a class="btn" href="{% url 'Project:project_show' %}">Cancel</a>
+                                  </form>
+                              </div>
+                          </div>
+                      </td>
+                  </tr>
+              {% endfor %}
+          {% endif %}
+      </tbody>
+  </table>
 </div>
-<!-- End Queries Section Result  -->
+
+<!-- Pagination Section -->
+<ul class="pagination center orange-text" style="font-weight: bold">
+  {% if project.has_previous %}
+      <li class="waves-effect"><a href="?page={{ project.previous_page_number }}"><i class="material-icons text-custom-color">chevron_left</i></a></li>
+  {% else %}
+      <li class="disabled"><a><i class="material-icons">chevron_left</i></a></li>
+  {% endif %}
+
+  <span class="current text-custom-color">
+      Pagina {{ project.number }} de {{ project.paginator.num_pages }}.
+  </span>
+
+  {% if project.has_next %}
+      <li class="waves-effect"><a href="?page={{ project.next_page_number }}"><i class="material-icons text-custom-color">chevron_right</i></a></li>
+  {% else %}
+      <li class="disabled"><a><i class="material-icons">chevron_right</i></a></li>
+  {% endif %}
+</ul>
+<!-- End Pagination Section -->
+
 {% endblock content_main %}
-
-
 
 {% block js_main %}
 <script>
   document.addEventListener('DOMContentLoaded', function() {
-  var elems = document.querySelectorAll('.modal');
-  var instances = M.Modal.init(elems);
-});
+      var elems = document.querySelectorAll('.modal');
+      var instances = M.Modal.init(elems);
+  });
 </script>
 {% endblock js_main %}

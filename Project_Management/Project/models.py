@@ -1,7 +1,10 @@
+# Lib Section 
+# Only for Libs
 from django.db import models
 from Accounts.models import ASC
 from Team.models import Team
-# Create your models here.
+#-----------------------------------------------------------------------------
+
 
 #Analisar bem o nome da classe
 class Estado(models.Model):

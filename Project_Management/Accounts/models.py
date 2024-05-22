@@ -1,9 +1,10 @@
-# Bibliotecas Necessarias 
+# Lib Section 
+# Only for Libs
 from django.db import models
 from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.contrib.auth.hashers import make_password 
+#-----------------------------------------------------------------------------
 
-#------------------------------------------------------------------
 
 
 
@@ -15,7 +16,8 @@ class Provincia(models.Model):
 
     def __str__(self):
         return self.nome_provincia
-    
+
+
 # ASC
 class Direccao_Regional(models.Model):
      nome_direccao = models.CharField(max_length=10, null=True, blank=True)
@@ -25,7 +27,7 @@ class Direccao_Regional(models.Model):
           return self.nome_direccao
      
 
-# Classe responsavel pela area de servico ao Cliente  
+# Classe responsavel pela ASC  
 class ASC(models.Model):
     nome = models.CharField(max_length = 30)
     codigo_ASC = models.CharField(max_length = 2)

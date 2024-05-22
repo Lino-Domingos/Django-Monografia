@@ -6,6 +6,7 @@ from django.db.models import Q
 from .forms import ProjectModelForm
 from django.urls import reverse_lazy
 from django.contrib import messages
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render, redirect, get_object_or_404
 
 
@@ -24,7 +25,21 @@ class Templateview(TemplateView):
     # 3. Super
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['project'] = Projecto.objects.all()
+
+        all_projects = Projecto.objects.all()
+        
+        # Pagination logic
+        page = self.request.GET.get('page', 1)
+        paginator = Paginator(all_projects, 3)  # Show 10 teams per page
+        
+        try:
+            projectos = paginator.page(page)
+        except PageNotAnInteger:
+            projectos = paginator.page(1)
+        except EmptyPage:
+            projectos = paginator.page(paginator.num_pages)
+
+        context['project'] = projectos
         return context
     
     #Post 
