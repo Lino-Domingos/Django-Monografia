@@ -21,8 +21,22 @@ from django.db.models import Q
 class Templateview(TemplateView):
     
     template_name = "team_view.html"
-    
 
+    def paginated(self, queryset, page_size):
+        paginator = Paginator(queryset, page_size)  # Show 10 teams per page
+        page = self.request.GET.get('page', 1)
+        
+        try:
+            paginated = paginator.page(page)
+        except PageNotAnInteger:
+            paginated = paginator.page(1)
+        except EmptyPage:
+            paginated = paginator.page(paginator.num_pages)
+
+        return paginated
+
+
+    
    #Context data
     # 1. self (instance of the same classe) 
     # 2. kwargs (kewords arguments): dictionary to acess all kewords passed in a function
@@ -30,20 +44,9 @@ class Templateview(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         all_teams = Team.objects.all()
-        
-        # Pagination logic
-        page = self.request.GET.get('page', 1)
-        paginator = Paginator(all_teams, 8)  # Show 10 teams per page
-        
-        try:
-            teams = paginator.page(page)
-        except PageNotAnInteger:
-            teams = paginator.page(1)
-        except EmptyPage:
-            teams = paginator.page(paginator.num_pages)
+        paginated_teams = self.paginated(all_teams, 8)
 
-        
-        context['equipes'] = teams
+        context['equipes'] = paginated_teams
         return context
     
     
@@ -55,13 +58,14 @@ class Templateview(TemplateView):
         searching = request.POST.get('search', '')  # Use POST for search queries
         if searching:
             results = Team.objects.filter(Q(name__icontains=searching))
-            if results:
-                context = {'result': results}
+            if results.exists():
+                search_teams = self.paginated(results, 8)
+                context = {'equipes': search_teams}
             else:
                 context = {'erro': 'Nenhum resultado encontrado.'}
             return render(request, self.template_name, context)
         else:
-            return render(request, self.template_name, {})
+            return render(request, self.template_name, { {'equipes': self.paginate_queryset(Team.objects.all(), 8)}})
         
 
 # 2. CBV CreateView

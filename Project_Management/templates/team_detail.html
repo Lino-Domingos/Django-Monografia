@@ -14,17 +14,7 @@
 
 {% block content_main %}
 
-<div class="row">
-    <div class="col s3">
-        
-    </div>
-
-    <div class="col s3">
-
-    </div>
-</div>
-
-<table class="striped brown lighten-4" >
+<!-- <table class="striped brown lighten-4" >
     <thead>
       <tr>
           <th>Team Name</th>
@@ -51,11 +41,9 @@
         <td>{{detail.date_created}}</td>
 
         <td>
-                <!-- Bottom Edit/Update Data -->
            <a href="{% url 'Team:team_edit' pk=detail.pk %}" class="waves-effect waves-light btn"><i class="material-icons" data-toggle="tooltip" title="Edit">edit</i></a>
           
           <a href="#modal2" class="waves-effect waves-light btn red modal-trigger"> <i class="material-icons" data-toggle="tooltip" title="Delete">delete</i></a>
-             <!-- Modal Structure -->
 
         <div id="modal2" class="modal">
             <div class="modal-content orange">
@@ -86,7 +74,64 @@
       </tr>
     </tbody>
   </table>
-<br>
+<br> -->   
+          
+          
+
+      <div class="container">
+        <div class="row">
+          <div class="col s12">
+            <div class="card">
+              <div class="card-content grey lighten-2">
+                <span class="card-title"> <center> <strong class="center-text">{{detail.name}}</strong> </center> </span>
+                
+                  <h6><strong>Supervisor: </strong> {{detail.supervisor.first_name}} </h6>
+                  <h6><strong>Membro da Team 1: </strong> {{detail.membros.first_name}}</h6> 
+                  <h6><strong>Membro da Team 2: </strong> {{detail.membros_1.first_name}}</h6>
+                  <h6><strong>Date Created:  </strong> {{detail.date_created}}</h6>
+
+
+                
+              </div>
+              <div class="card-action">
+                <div class="row">
+                  <div class="right">
+                    <a href="{% url 'Team:team_edit' pk=detail.pk %}" class="waves-effect waves-light btn"><i class="material-icons" data-toggle="tooltip" title="Edit">edit</i> Actualizar dados</a>
+                
+                <a href="#modal2" class="waves-effect waves-light btn red modal-trigger"> <i class="material-icons" data-toggle="tooltip" title="Delete">delete</i> Apagar </a>
+      
+              <div id="modal2" class="modal">
+                  <div class="modal-content orange">
+                      <div class="title">
+                      <h5>Equipe</h5>
+                      </div>
+
+      
+                   <blockquote>
+                    Tem a certeza que vai apagar a equipe?
+                      <p class="white-text">Ao apagar a equipe o registo será eliminado de forma permanente no sistema.</p>
+                   </blockquote>
+      
+                  <form method="post" action = "{% url 'Team:team_detail' pk=detail.pk %}">
+                    {% csrf_token %}
+
+                      
+                        <input type="submit" class='btn btn-danger red' value="Delete">
+                        <a  class=" btn" href="{% url 'Team:team_detail' pk=detail.pk %}">Cancel</a>
+                  </form>
+      
+                    
+                  </div>
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+
   
 <div class="row">
     <div class="col s2 right">
