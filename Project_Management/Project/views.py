@@ -82,7 +82,7 @@ class Templateview(TemplateView):
 class Createview(CreateView):
     model = Projecto
     form_class = ProjectModelForm
-    template_name = 'project.html'
+    template_name = 'project_create.html'
 
     #Get_sucess_url
     #Fuction to get url when post it's processed
@@ -94,7 +94,7 @@ class Createview(CreateView):
     #Fuction to validate a form when form it;s save
     def form_valid(self, form):
         form.save()
-        messages.add_message(self.request, messages.INFO, 'Team | Criada com sucesso')
+        messages.add_message(self.request, messages.SUCCESS, 'Team | Criada com sucesso')
         #form.instance.creator = self.request.user
         return super().form_valid(form)
     

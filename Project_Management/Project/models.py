@@ -93,7 +93,9 @@ class Projecto(models.Model):
     tipo = models.ForeignKey(Project_type, on_delete=models.CASCADE, default=1)
     equipe = models.ForeignKey(Team, on_delete=models.CASCADE, default=1)
     LV = models.ForeignKey(LV_Feeder, on_delete=models.CASCADE, default=1)
-    perfil = models.ForeignKey(Estado, on_delete=models.CASCADE, default=1)
+    # perfil = models.ForeignKey(Estado, on_delete=models.CASCADE, default=1)
+    is_active = models.BooleanField(default=True)
+
 
 
     #Metodo para juntar dois campos de fields

@@ -28,6 +28,8 @@ urlpatterns = [
 
     path('project/', include('Project.urls')),
 
+    path('task/', include('Task.urls')),
+
 
     
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

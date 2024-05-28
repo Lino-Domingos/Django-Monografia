@@ -73,7 +73,7 @@ class Templateview(TemplateView):
 class CreateTeam(LoginRequiredMixin, CreateView):
     model = Team
     form_class = TeamModelForm
-    template_name = 'team.html'
+    template_name = 'team_create.html'
     
      
     #Metodo de rederecionamento da urls apos o processamento

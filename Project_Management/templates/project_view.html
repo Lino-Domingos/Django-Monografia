@@ -42,7 +42,7 @@
   <table>
       <thead>
           <tr>
-              <th>ID</th>
+              <!-- <th>ID</th> -->
               <th>Project Name</th>
               <th>Project Team</th>
               <th>Type</th>
@@ -55,11 +55,11 @@
           {% if result %}
               {% for projects in result %}
                   <tr>
-                      <td>{{projects.id}}</td>
+                      <!-- <td>{{projects.id}}</td> -->
                       <td>{{projects.lv_equipe_name}}</td>
                       <td>{{projects.equipe}}</td>
                       <td>{{ projects.tipo }}</td>
-                      <td>{{projects.perfil}}</td>
+                      <td>{{projects.is_active}}</td>
                       <td>
                           <a href="" class="waves-effect waves-light btn"><i class="material-icons" data-toggle="tooltip" title="Edit">edit</i></a>
                           <a href="#modal2" class="waves-effect waves-light btn red modal-trigger"> <i class="material-icons" data-toggle="tooltip" title="Delete">delete</i></a>
@@ -92,11 +92,11 @@
               {% endif %}
               {% for projects in project %}
                   <tr>
-                      <td>{{projects.id}}</td>
+                      <!-- <td>{{projects.id}}</td> -->
                       <td>{{projects.lv_equipe_name}}</td>
                       <td>{{projects.equipe}}</td>
                       <td>{{projects.tipo}}</td>
-                      <td>{{projects.perfil}}</td>
+                      <td>{{projects.is_active}}</td>
                       <td>
                           <a href="" class="waves-effect waves-light btn"><i class="material-icons" data-toggle="tooltip" title="Edit">edit</i></a>
                           <a href="#modal2" class="waves-effect waves-light btn red modal-trigger"> <i class="material-icons" data-toggle="tooltip" title="Delete">delete</i></a>

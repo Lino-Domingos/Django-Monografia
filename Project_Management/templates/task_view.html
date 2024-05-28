@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Tarefas | Administração
+{% endblock %}
+
+
+{% block page_header %} 
+  Tarefa
+{% endblock page_header %}
+
+
+
+{% block content_main %} 
+      <!-- Row: 
+      1. Search Form -->
+      <div class="row">
+        <!--  Col size s7 grid (Materialize css ) -->
+        <div class="col s7">
+        <form method="POST" action="#" >
+            {% csrf_token %}
+            <div class="input-field col s5">
+              <i class="orange-text material-icons prefix">search</i>
+               <input id="search" type="search" name="search" required placeholder="">
+            </div>
+          </form>
+      </div>
+      
+
+
+      <!-- Bottom in Right Position -->
+      <div class="right">
+
+        <a  href="#" class="btn"> <i class="bx bx-task icon"></i>All Task </a>
+
+        
+        <a href="{% url 'Task:task_create' %}" class="waves-effect waves-light btn orange black-text modal-trigger"> <i class="material-icons" data-toggle="tooltip" title="Add">add</i> New Task </a>
+      
+               <!-- <div id="modal2" class="modal">
+                  <div class="modal-content orange">
+                      <div class="title">
+                           <h5>Tarefa</h5>
+                      </div>
+             
+      
+                         <div class="card">
+                             <div class="card-content">
+                                 <span class="card-title ">Criação de Tarefa</span>
+                                 <hr>
+
+                                   <form action="" method="post">
+                 
+                                     {% csrf_token %}
+
+                                     <div class="input-field s6">
+                                       {{form.as_p}}
+                                     </div>
+
+                                     <div class="input-field">
+                                       <button class="btn waves-effect waves-light" type="submit" name="action" >Submeter</button>
+                                        <a href="{% url 'Task:task_view' %}" class="btn red">Cancelar</a>
+                                     </div>
+              
+                                   </form>
+                             </div>
+                         </div>
+      
+            
+                  </div>
+
+                </div> -->
+<!-- End Bottom Section  -->
+
+</div>
+</div>
+<!-- End  -->
+
+
+<!-- Row CARD -->
+          <div class="row">
+            <!-- Result Section  -->
+            <div class="col s4 m3">
+                <a  class="text-dark"  href="#">
+                   <div class="card horizontal">
+                     <div class="card-image">
+                     </div>
+                     <div class="card-stacked">
+                       <div class="card-content">
+                       <p> <i class="bx bx-task icon"></i> </p>
+                       </div>
+                       <div class="card-action">
+                         <a href="#" class="white-text">Team info ..</a>
+                       </div>
+                     </div>
+                   </div>
+                 </a>
+            </div>
+            <!-- End SEction Result -->
+
+            <!-- Error Section -->
+            <!-- End Error Section  -->
+
+            <!-- Queries Section -->
+<!-- End Queries Section Result  -->
+  
+          </div>
+ <!-- END Row Card --> 
+
+{% endblock content_main %}
+
+
+{% block js_main %}
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+  var elems = document.querySelectorAll('.modal');
+  var instances = M.Modal.init(elems);
+});
+</script>
+
+{% endblock js_main %}
+    
