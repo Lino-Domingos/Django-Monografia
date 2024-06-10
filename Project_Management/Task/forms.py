@@ -23,7 +23,7 @@ class CreateForm(forms.ModelForm):
     def clean_project(self):
         project = self.cleaned_data['project']
         if Task.objects.filter(project=project).exists():
-            raise forms.ValidationError("Este projeto já está atribuído a uma tarefa.")
+            raise forms.ValidationError("Este projeto já está atribuído a uma tarefa. Por favor selecione outro")
         return project
 
    

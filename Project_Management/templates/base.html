@@ -1,4 +1,5 @@
 {% load static %}
+{% load permission_tags %}
 
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -47,7 +48,9 @@
           <span class="tooltip">Painel</span>
         </li>
 
-
+       
+        {% if perms.Team.view_team %}
+    
         <li>
           <a href="{% url 'Team:team_show' %}">
             <i class="bx bxs-group icon"></i>
@@ -56,6 +59,12 @@
           <span class="tooltip">Equipes</span>
         </li>
 
+      {% endif %}
+        
+       
+       
+       {% if perms.Project.view_projecto %}
+        
         <li>
           <a href="{% url 'Project:project_show' %}">
             <i class='bx bx-edit'></i>
@@ -64,6 +73,11 @@
           <span class="tooltip">Projectos</span>
         </li>
 
+      {% endif %}
+       
+
+
+            
         <li>
           <a href="{% url 'Task:task_view' %}">
             <i class="bx bx-task icon"></i>
@@ -72,6 +86,8 @@
           <span class="tooltip">Tarefa</span>
         </li>
 
+    
+      
         <li>
           <a href="#">
             <i class="bx bx-pie-chart-alt-2"></i>
@@ -79,6 +95,7 @@
           </a>
           <span class="tooltip">Análise</span>
         </li>
+        
 
         <li>
           <a href="#">

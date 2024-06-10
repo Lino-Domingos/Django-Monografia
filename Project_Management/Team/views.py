@@ -7,7 +7,8 @@ from django.views.generic.base import TemplateView
 from django.views.generic.detail import DetailView
 from django.shortcuts import render
 from .forms import TeamModelForm
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.contrib.auth.decorators import permission_required
 from django.contrib import messages
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Q
@@ -18,8 +19,10 @@ from django.db.models import Q
 # 1. CBV templateView
 # Only need the template_name
 # The get_context_data to serve the context_data
-class Templateview(TemplateView):
-    
+
+#Testando a permissao com o Permission required da view TemplateView
+class Templateview(PermissionRequiredMixin, LoginRequiredMixin, TemplateView):
+    permission_required = 'Team.view_team'
     template_name = "team_view.html"
 
     def paginated(self, queryset, page_size):
@@ -70,7 +73,9 @@ class Templateview(TemplateView):
 
 # 2. CBV CreateView
 # Requirements: model, form_class and template_name.
-class CreateTeam(LoginRequiredMixin, CreateView):
+#@permission_required('Team.add_Team')
+class CreateTeam(PermissionRequiredMixin, CreateView):
+    permission_required= 'Team.add_team'
     model = Team
     form_class = TeamModelForm
     template_name = 'team_create.html'
@@ -97,7 +102,8 @@ class CreateTeam(LoginRequiredMixin, CreateView):
 
 
 
-class Detailview(DetailView):
+class Detailview(PermissionRequiredMixin, DetailView):
+  permission_required= 'Team.view_team'
   model = Team
   template_name = 'team_detail.html'
   context_object_name = 'detail'
@@ -127,7 +133,8 @@ class Detailview(DetailView):
       return HttpResponseRedirect(self.get_object().get_absolute_url(), context)
 
     
-class Updateview(UpdateView):
+class Updateview(PermissionRequiredMixin, UpdateView):
+   permission_required = 'Team.change_team'
    model = Team
    form_class = TeamModelForm
    template_name = 'team_edit.html'

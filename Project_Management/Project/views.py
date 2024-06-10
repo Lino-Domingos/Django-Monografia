@@ -7,6 +7,7 @@ from .forms import ProjectModelForm
 from django.urls import reverse_lazy
 from django.contrib import messages
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.shortcuts import render, redirect, get_object_or_404
 
 
@@ -14,8 +15,9 @@ from django.shortcuts import render, redirect, get_object_or_404
 # 1. CBV templateView
 # Only need the template_name
 # The get_context_data to serve the context_data
-class Templateview(TemplateView):
-
+# Add Permission check to view (only especific users)
+class Templateview(PermissionRequiredMixin, TemplateView):
+    permission_required = 'Project.view_projecto'
     template_name = 'project_view.html'
 
 

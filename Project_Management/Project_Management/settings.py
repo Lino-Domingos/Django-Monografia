@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'Panel',
     'Project',
     'Task',
+    'rolepermissions',
     
     
     
@@ -45,7 +46,9 @@ INSTALLED_APPS = [
 
 AUTH_USER_MODEL = 'Accounts.User'
 
+#ROLEPERMISSIONS_MODULE = 'Project_Management.roles'
 
+#ROLEPERMISSIONS_REGISTER_ADMIN = True
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

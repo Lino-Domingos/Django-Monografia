@@ -1,8 +1,8 @@
 # Lib Section 
 # Only for Libs
 from django.db import models
-from django.contrib.auth.models import AbstractUser, BaseUserManager
-from django.contrib.auth.hashers import make_password 
+from django.contrib.auth.models import AbstractUser, BaseUserManager, Group, Permission
+#from django.contrib.auth.hashers import make_password 
 #-----------------------------------------------------------------------------
 
 
@@ -83,6 +83,7 @@ class User(AbstractUser):
 
 # New Field User_Type
     user_type = models.CharField(max_length=20, choices=USER_TYPE_CHOICES)
+    #roles = models.ManyToManyField(RolesManager.get_role_model())
 
     #As classes devem estar dentro do modelo personalizado simplesmente
 
@@ -112,7 +113,11 @@ class User(AbstractUser):
     def is_direccao_central(self):
         return self.user_type == 'direccao_central'
 
-
+    
+        
+        # Continue for other user types
 
 #Cria uma nova instancia CustomUsuario   
     objects = CustomUsuario()
+
+

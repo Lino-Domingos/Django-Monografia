@@ -336,3 +336,10 @@ footer {
   width: 100%;
 }
 
+/* Alert Task */
+.alerts {
+  font-weight: bold;
+  font-size: 1.1em;
+  margin-right:4px;
+}
+

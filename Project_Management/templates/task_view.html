@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load permission_tags %}
 
 {% block title %}
     Tarefas | Administração
@@ -21,7 +22,7 @@
             {% csrf_token %}
             <div class="input-field col s5">
               <i class="orange-text material-icons prefix">search</i>
-               <input id="search" type="search" name="search" required placeholder="">
+               <input id="search" type="search" name="search" required placeholder="Pesquise a Tarefa">
             </div>
           </form>
       </div>
@@ -31,10 +32,14 @@
       <!-- Bottom in Right Position -->
       <div class="right">
 
-        <a  href="#" class="btn"> <i class="bx bx-task icon"></i>All Task </a>
+        <a  href="{% url 'Task:task_view' %}" class="btn"> <i class="bx bx-task icon"></i>All Task </a>
 
         
+        {% if perms.Project.add_projecto %}
+          
         <a href="{% url 'Task:task_create' %}" class="waves-effect waves-light btn orange black-text modal-trigger"> <i class="material-icons" data-toggle="tooltip" title="Add">add</i> New Task </a>
+        
+        {% endif %}
       
                <!-- <div id="modal2" class="modal">
                   <div class="modal-content orange">
@@ -79,6 +84,10 @@
 <!-- Row CARD -->
           <div class="row">
             <!-- Result Section  -->
+      {% if result %}
+
+            {% for tarefa in  result %} 
+        
             <div class="col s4 m3">
                 <a  class="text-dark"  href="#">
                    <div class="card horizontal">
@@ -86,25 +95,75 @@
                      </div>
                      <div class="card-stacked">
                        <div class="card-content">
-                       <p> <i class="bx bx-task icon"></i> </p>
+                       <p> <i class="bx bx-task icon"></i> {{tarefa.name}} </p>
                        </div>
                        <div class="card-action">
-                         <a href="#" class="white-text">Team info ..</a>
+                         <a href="#" class="black-text">Task Info</a>
                        </div>
                      </div>
                    </div>
                  </a>
             </div>
+            {% endfor %}
             <!-- End SEction Result -->
-
+            {% else %}
             <!-- Error Section -->
+                          
+            {% if erro %}
+            <center>{{erro}}</center>
+             {% endif %}
+             
             <!-- End Error Section  -->
 
             <!-- Queries Section -->
+          
+          {% for  tarefa in tarefas %}
+            
+            <div class="col s4 m3">
+              <a  class="text-dark"  href="#">
+                 <div class="card horizontal">
+                   <div class="card-image">
+                   </div>
+                   <div class="card-stacked">
+                     <div class="card-content">
+                     <p> <i class="bx bx-task icon"></i> {{tarefa.name}} </p>
+                     </div>
+                     <div class="card-action">
+                       <a href="#" class="black-text">Task Info</a>
+                     </div>
+                   </div>
+                 </div>
+               </a>
+          </div>
+          {% endfor %}
+
+      {% endif %}
+      
 <!-- End Queries Section Result  -->
   
           </div>
  <!-- END Row Card --> 
+  
+  
+ <ul class="pagination center green-text" style="font-weight: bold">
+  {% if tarefas.has_previous %}
+      <li class="waves-effect"><a href="?page={{ tarefas.previous_page_number }}"><i class="material-icons text-custom-color">chevron_left</i></a></li>
+    {% else %}
+      <li class="disabled"><a><i class="material-icons">chevron_left</i></a></li>
+  {% endif %}
+
+    <span class="current text-custom-color">
+      Pagina {{ tarefas.number }} de {{ tarefas.paginator.num_pages }}.
+    </span>
+
+ {% if tarefas.has_next %}
+      <li class="waves-effect"><a href="?page={{ tarefas.next_page_number }}"><i class="material-icons text-custom-color">chevron_right</i></a></li>
+    {% else %}
+      <li class="disabled"><a><i class="material-icons">chevron_right</i></a></li>
+ {% endif %}
+</ul>
+
+
 
 {% endblock content_main %}
 
