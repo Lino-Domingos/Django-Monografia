@@ -13,6 +13,10 @@
 
 
 {% block content_main %} 
+
+
+
+    
       <!-- Row: 
       1. Search Form -->
       <div class="row">
@@ -98,7 +102,7 @@
                        <p> <i class="bx bx-task icon"></i> {{tarefa.name}} </p>
                        </div>
                        <div class="card-action">
-                         <a href="#" class="black-text">Task Info</a>
+                         <a href="#" class="black-text">Estado - {{tarefa.status}}</a>
                        </div>
                      </div>
                    </div>
@@ -126,10 +130,10 @@
                    </div>
                    <div class="card-stacked">
                      <div class="card-content">
-                     <p> <i class="bx bx-task icon"></i> {{tarefa.name}} </p>
+                     <p> <i class="bx bx-task icon"></i>{{tarefa.name}} </p>
                      </div>
                      <div class="card-action">
-                       <a href="#" class="black-text">Task Info</a>
+                       <a href="#" class="black-text">Estado - {{tarefa.status}}</a>
                      </div>
                    </div>
                  </div>
@@ -163,6 +167,14 @@
  {% endif %}
 </ul>
 
+
+
+
+  
+
+
+
+  
 
 
 {% endblock content_main %}

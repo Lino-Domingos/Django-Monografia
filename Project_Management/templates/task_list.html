@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load permission_tags %}
+
+{% block title %}
+    Tarefas | Administração
+{% endblock %}
+
+
+{% block page_header %} 
+  Tarefa
+{% endblock page_header %}
+
+
+{% block content_main %}
+<h1>Lista de Tarefas da Equipe</h1>
+<ul>
+    {% for task in team_tasks %}
+        <li>{{ task.name }}</li>
+    {% empty %}
+        <li>Não há tarefas atribuídas à sua equipe.</li>
+    {% endfor %}
+</ul>
+    
+{% endblock content_main %}
+    

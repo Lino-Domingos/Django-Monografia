@@ -1,9 +1,11 @@
 from django.shortcuts import render
 from .forms import CreateForm
 from .models import Task
+from Team.models import Team
+from Project.models import Projecto
 from django.contrib import messages
 from django.db.models import Q
-from django.views.generic import CreateView, TemplateView
+from django.views.generic import CreateView, TemplateView, ListView
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.contrib.auth.decorators import permission_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -12,9 +14,10 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 # Create your views here.
-# def index(request):
-#     form = CreateForm()
-#     return render(request,'task_view.html', {'form':form})
+@permission_required('Task.view_task')
+def Taskdetailview(request):
+     form = CreateForm()
+     return render(request,'task_detail.html', {'form':form})
 
 
 # def forms(request):
@@ -22,7 +25,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 #     return render (request, 'task_view.html', {'form':form})
 
 class Templateview(PermissionRequiredMixin, TemplateView):
-    permission_required = 'Project.view_projecto'
+    permission_required = 'Task.add_task'
     template_name = 'task_view.html'
 
 
@@ -70,7 +73,7 @@ class Templateview(PermissionRequiredMixin, TemplateView):
 
 
 class Createview(PermissionRequiredMixin, CreateView):
-    permission_required = 'Project.add_projecto'
+    permission_required = 'Task.add_task'
     model = Task
     form_class = CreateForm
     template_name = 'task_create.html'
@@ -104,5 +107,30 @@ class Createview(PermissionRequiredMixin, CreateView):
         return super().form_invalid(form)
     
 
-    
+
+class listas(PermissionRequiredMixin, ListView):
+    permission_required = 'Task.change_task'
+    model = Task
+    template_name = 'task_list.html'
+    context_object_name = 'team_tasks'
+
+    def get_queryset(self):
+        if self.request.user.is_authenticated:
+            # Encontrar equipes onde o usuário é membro ou supervisor
+            user_teams = Team.objects.filter(
+                Q(membros=self.request.user) |
+                Q(membros_1=self.request.user)
+            )
+
+            if user_teams.exists():
+                # Filtrar tarefas associadas aos projetos das equipes do usuário
+                return Task.objects.filter(
+                    project__equipe__in=user_teams
+                )
+            else:
+                # Se o usuário não pertence a nenhuma equipe, retornar um queryset vazio
+                return Task.objects.none()
+        else:
+            # Se o usuário não estiver autenticado, retornar um queryset vazio
+            return Task.objects.none()
 
