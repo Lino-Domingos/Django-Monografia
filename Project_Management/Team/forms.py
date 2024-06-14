@@ -31,9 +31,25 @@ class TeamModelForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
              # Filtrar o queryset para incluir apenas usuários que não estão em nenhuma equipe
-        self.fields['membros'].queryset = User.objects.filter(user_type='tecnico_campo').exclude(teams_members__isnull=False)
-        self.fields['membros'].widget.attrs['data-max-options'] = 2
+        if self.instance.pk:
+            # Inclui os membros que já fazem parte da equipe no queryset
+            self.fields['membros'].queryset = User.objects.filter(
+                user_type='tecnico_campo'
+            ).exclude(
+                teams_members__isnull=False
+            ) | self.instance.membros.all()
+        else:
+            # Exclui os membros que já estão atribuídos a qualquer equipe
+            membros_queryset=self.fields['membros'].queryset = User.objects.filter(
+                user_type='tecnico_campo'
+            ).exclude(
+                teams_members__isnull=False
+            )
+            self.fields['membros'].queryset = membros_queryset
+            self.no_members_available = not membros_queryset.exists()
 
+
+        
     def clean(self):
         cleaned_data = super().clean()
         membros = cleaned_data.get('membros')

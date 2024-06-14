@@ -67,6 +67,9 @@
               <div class="input-field">
                 {{form.asc.label}}
                  {{form.asc}}
+                 {% if form.asc.errors %}
+                                <div class="red-text">{{ form.membros.errors }}</div>
+                    {% endif %}
               </div>
           </div>
             </div>
@@ -76,6 +79,15 @@
                 <div class="input-field">
                   {{form.membros.label}}
                    {{form.membros}}
+                   
+                {% if form.no_members_available %}
+                                <p class="red-text">Não há membros disponíveis para seleção.</p>
+                  {% else %}
+                    
+                   {% if form.membros.errors %}
+                                <div class="red-text">{{ form.membros.errors }}</div>
+                    {% endif %}
+                {% endif %}
                 </div>
             </div>
             <div class="col s6"> 
@@ -114,14 +126,6 @@
     </div>
   </div>
   
-
-
-
-
-
-
-
-
 {% endblock content_main %}
 
 

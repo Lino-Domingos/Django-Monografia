@@ -21,6 +21,9 @@ class Team(models.Model):
     supervisor = models.ForeignKey(User, on_delete=models.CASCADE, related_name='teams_supervisor', limit_choices_to={'user_type__in':['supervisor_campo']}, default=1)
     date_created = models.DateTimeField(default=timezone.now)
 
+    class Meta:
+        ordering = ['name'] 
+
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
         super().save(*args, **kwargs)

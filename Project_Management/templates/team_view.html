@@ -62,11 +62,10 @@
         </div>
         <div class="card-stacked">
           <div class="card-content">
-          <p> <i class="bx bxs-group icon"></i> {{equipe.name}} </p>
+            <span class="card-title">{{equipe.name}}</span>
+            <p>Texte</p>
           </div>
-          <div class="card-action orange">
-            <a href="#" class="white-text">Team info ..</a>
-          </div>
+          
         </div>
       </div>
     </a>
@@ -85,17 +84,16 @@
 
 <!-- Queries Section -->
     {% for equipe in equipes %}
-    <div class="col s4 m3">
+    <div class="col s4 m2">
       <a class="text-dark" href="{% url 'Team:team_detail' pk=equipe.pk %}">
-      <div class="card horizontal">
+      <div class="card">
        
         <div class="card-stacked">
           <div class="card-content">
-             <p>  {{equipe.name}}</p>
+            <span class="card-title orange-text">{{equipe.name}}</span>
+            <p class="blue-text"><strong class="black-text">Supervisor:</strong> {{ equipe.supervisor.first_name }}</p>
           </div>
-          <div class="card-action orange">
-            <a href="" class="black-text">Team info ..</a>
-          </div>
+          <hr >
         </div>
       </div>
     </a>

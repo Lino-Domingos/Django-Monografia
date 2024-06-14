@@ -14,76 +14,13 @@
 
 {% block content_main %}
 
-<!-- <table class="striped brown lighten-4" >
-    <thead>
-      <tr>
-          <th>Team Name</th>
-          <th>State</th>
-          <th>ASC</th>
-          <th>Members</th>
-          <th>Members</th>
-          <th>Supervisor</th>
-          <th>Creator</th>
-          <th>Date Created</th>
-          <th>Actions</th>
-      </tr>
-    </thead>
-
-    <tbody>
-      <tr>
-        <td>{{detail.name}}</td>
-        <td>{{detail.state}}</td>
-        <td>{{detail.asc}}</td>
-        <td>{{detail.membros.first_name}}</td>
-        <td>{{detail.membros_1.first_name}}</td>
-        <td>{{detail.supervisor.first_name}}</td>
-        <td>{{detail.creator}}</td>
-        <td>{{detail.date_created}}</td>
-
-        <td>
-           <a href="{% url 'Team:team_edit' pk=detail.pk %}" class="waves-effect waves-light btn"><i class="material-icons" data-toggle="tooltip" title="Edit">edit</i></a>
-          
-          <a href="#modal2" class="waves-effect waves-light btn red modal-trigger"> <i class="material-icons" data-toggle="tooltip" title="Delete">delete</i></a>
-
-        <div id="modal2" class="modal">
-            <div class="modal-content orange">
-                <div class="title">
-                <h5>Team</h5>
-            </div>
-
-             <blockquote>
-                De certeza vai apagar permanentemente a equipe: {{detail.name}}?
-                <p class="white-text">Sera permanente</p>
-             </blockquote>
-
-            <form method="post" action = "{% url 'Team:team_detail' pk=detail.pk %}">
-              {% csrf_token %}
-                </div>
-                <div class="modal-footer">
-                  <input type="submit" class='btn btn-danger red' value="Delete">
-                  <a href="{% url 'Team:team_detail' pk=detail.pk %}">Cancel</a>
-                </div>
-
-              </form> 
-      
-          </div>
-
-  </div>
-
-        </td>
-      </tr>
-    </tbody>
-  </table>
-<br> -->   
-          
-          
 
       <div class="container">
         <div class="row">
           <div class="col s12">
             <div class="card">
               <div class="card-content grey lighten-2">
-                <span class="card-title"> <center> <strong class="center-text">{{detail.name}}</strong> </center> </span>
+                <span class="card-title"> <center> <strong class="center-text" style="font-style: italic;">{{detail.name}}</strong> </center> </span>
                 
                   <h6><strong>Supervisor: </strong> {{detail.supervisor.first_name}} </h6>
                 
@@ -92,10 +29,8 @@
                   <h6><strong>Membro da Team: </strong> {{members.first_name}}</h6> 
                   {% endfor %}
 
-                  <h6><strong>Date Created:  </strong> {{detail.date_created}}</h6>
+                  <h6><strong>Dia de criação: </strong> {{detail.date_created|date:"Y-m-d"}}</h6>
 
-
-                
               </div>
               <div class="card-action">
                 <div class="row">
@@ -110,7 +45,6 @@
                       <h5>Equipe</h5>
                       </div>
 
-      
                    <blockquote>
                     Tem a certeza que vai apagar a equipe?
                       <p class="white-text">Ao apagar a equipe o registo será eliminado de forma permanente no sistema.</p>

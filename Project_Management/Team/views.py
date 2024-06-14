@@ -151,16 +151,16 @@ class Updateview(PermissionRequiredMixin, UpdateView):
   #       )
    
    def get_success_url(self):
-        return self.request.path
-
+       return reverse_lazy('Team:team_detail', kwargs={'pk': self.object.pk})
+   
    def form_valid(self, form):
-           form.save()
-           messages.add_message(self.request, messages.INFO, 'Equipe | Actuaizado com sucesso')
-           #form.instance.creator = self.request.user
-           return super().form_valid(form)
+        form.save()
+        messages.success(self.request, 'Equipe | Actuaizado com sucesso')
+        #form.instance.creator = self.request.user
+        return super().form_valid(form)
     
    def form_invalid(self, form):
-        messages.add_message(self.request, messages.ERROR, 'Equipe | Erro Tente Novamente!')
+        messages.error(self.request,'Equipe | Erro tente novamente!')
         return super().form_invalid(form)
    
 

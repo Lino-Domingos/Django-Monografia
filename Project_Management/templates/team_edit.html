@@ -13,94 +13,114 @@
 
 {% block content_main %}
 
-<h6 class="col s4" style="font-weight: 450; margin-top: 15px; font-size: 1rem;"> 
-  Update Equipe
-</h6>
-<div class="divider black"></div>
+<div class="container">
+  <div class="col s12">
+    <div class="card">
+      <div class="card-content">
+        <span class="card-title ">Equipes</span>
+        <hr>
 
-     {% if messages %}
-     {% for message in messages %}
-        {% if 'info' in message.tags %}
-           <div class="card-panel  hoverable green lighten-2">{{message}}</div>
+        {% if messages %}
+        {% for message in messages %}
+        {% if 'success' in message.tags %}
+        <div class="alert card green lighten-4 green-text text-darken-4">
+          <div class="card-content">
+            <p><i class="material-icons">check_circle</i><span class="alerts"> Task Alert: </span> {{ message }} </p>
+          </div>
+        </div>
         {% endif %}
 
         {% if 'error' in message.tags %}
-           <div class="card-panel  hoverable red lighten-2">{{message}}</div>
+        <div class="alert card red lighten-4 red-text text-darken-4">
+          <div class="card-content">
+            <p><i class="material-icons">error</i><span class="alerts"> Task Alert: </span> {{ message }} </p>
+          </div>
+        </div>
         {% endif %}
 
-     {% endfor %}
-     {% endif %}
-     <form class="card dark-text"  method="POST" style="padding: 10px;">
-       {% csrf_token %}
-  
-       <!-- <h6 style="font-weight: 500; margin-bottom: 5px; " id="myForm1">Dados da equipe</h6>
-       <div class="divider black"></div> -->
+        {% endfor %}
+        {% endif %}
 
-
-      <div class="row">
-          <div class="col s6">
-             {{ form.name| materializecss}}
+        <form action="" method="post">
+          {% csrf_token %}
+          <div class="row">
+            <div class="col s6"> 
+              <div class="input-field">
+                 {{form.name|materializecss}}
+              </div>
           </div>
-          <div class="col s6">
-             {{form.asc.label_tag}}
-             {{form.asc}}
-          </div>             
-      </div>
-
-
-
-      <div class="row">
-
-        <div class="col s6">
-          {{form.state| materializecss}}
-         </div>
-
-         <div class="col s6">
-          {{form.creator.label_tag}}
-          {{form.creator}}
+          <div class="col s6"> 
+            <div class="input-field">
+              {{form.asc.label}}
+               {{form.asc}}
+               {% if form.asc.errors %}
+                              <div class="red-text">{{ form.membros.errors }}</div>
+                  {% endif %}
+            </div>
         </div>
-
-      </div>
-
-
-      <!-- <h6 style="font-weight: 500; margin-bottom: 5px; " id="myForm1">Membros da equipe</h6>
-      <div class="divider black"></div> -->
-
-    <div class="row">
-      <div class="col s6">
-        {{form.membros.label_tag}}
-        {{form.membros}}
-      </div>
-
-      <div class="col s6">
-        {{form.supervisor.label_tag}}
-        {{form.supervisor}}
-      </div>
-   
-   
-     </div>
-
-
-<!-- Outros campos e botões aqui -->
-<br>
-
-       <div class="row">
-          <div class="col s6">
-            <button type="submit" class="waves-effect waves-light btn">Actualizar</button>
           </div>
-       </div>  
 
-</form>
+          <div class="row">
+            <div class="col s6"> 
+              <div class="input-field">
+                {{form.membros.label}}
+                 {{form.membros}}
+                 
+              {% if form.no_members_available %}
+                              <p class="red-text">Não há membros disponíveis para seleção.</p>
+                {% else %}
+                  
+                 {% if form.membros.errors %}
+                              <div class="red-text">{{ form.membros.errors }}</div>
+                  {% endif %}
+              {% endif %}
+              </div>
+          </div>
+          <div class="col s6"> 
+            <div class="input-field">
+              {{form.supervisor.label}}
+              {{form.supervisor}}
+            </div>
+        </div>
+          </div>
 
-<div class="row">
-  <div class="col s2 right">
-    <a href="{% url 'Team:team_show' %}" class="btn orange black-text"><i class="material-icons">arrow_back</i> Voltar </a>
+  
+          <div class="row">
+            <div class="col s6"> 
+              <div class="input-field">
+                <div class="input-field">
+                  <button class="btn waves-effect " type="submit" name="action">Guardar</button>
+                </div>
+              </div>
+          </div>
+          </div>
+  
+
+          
+        </form>
+        <!-- Botao para voltar somente -->
+
+      </div>
+    </div>
+    
+
+  </div>
+    <div class="row">
+    <div class="right">
+      <a href="{% url 'Team:team_show' %}" class="btn orange black-text"><i class="material-icons">arrow_back</i> Voltar </a>
+    </div>
   </div>
 </div>
-
 
 {% endblock content_main %}
 
 {% block js_main %}
- 
+<script>
+  // Remover mensagens de sucesso ou erro após 5 segundos
+  setTimeout(function() {
+    document.querySelectorAll('.alert').forEach(function(alert) {
+      alert.parentNode.removeChild(alert);
+    });
+  }, 1000);  // 5000 milissegundos = 5 segundos
+</script>
 {% endblock js_main %}
