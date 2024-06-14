@@ -88,15 +88,19 @@ class CreateTeam(PermissionRequiredMixin, CreateView):
     #Form Valid
     #Fuction to validate a form when form it;s save
     def form_valid(self, form):
+        form.instance.creator = self.request.user
         form.save()
-        messages.add_message(self.request, messages.INFO, 'Equipe | Criada com sucesso')
+
+        # Team.membros.is_assigned_to_team = True
+        # Team.membros.save()
+        messages.success(self.request, 'Equipe | Criada com sucesso')
         return super().form_valid(form)
     
 
     #Form invalid
     #Fuction to show message when form it's invalidate
     def form_invalid(self, form):
-        messages.add_message(self.request, messages.ERROR, 'Equipe | Erro Tente Novamente!')
+        messages.error(self.request, 'Equipe | Erro Tente Novamente!')
         return super().form_invalid(form)
     
 

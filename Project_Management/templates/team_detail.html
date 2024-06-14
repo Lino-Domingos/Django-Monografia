@@ -86,8 +86,12 @@
                 <span class="card-title"> <center> <strong class="center-text">{{detail.name}}</strong> </center> </span>
                 
                   <h6><strong>Supervisor: </strong> {{detail.supervisor.first_name}} </h6>
-                  <h6><strong>Membro da Team 1: </strong> {{detail.membros.first_name}}</h6> 
-                  <h6><strong>Membro da Team 2: </strong> {{detail.membros_1.first_name}}</h6>
+                
+                  <!-- Iteira soobre os membros da Team que somente devem ser dois apenas -->
+                  {% for members in  detail.membros.all %}
+                  <h6><strong>Membro da Team: </strong> {{members.first_name}}</h6> 
+                  {% endfor %}
+
                   <h6><strong>Date Created:  </strong> {{detail.date_created}}</h6>
 
 

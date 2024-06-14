@@ -83,6 +83,7 @@ class User(AbstractUser):
 
 # New Field User_Type
     user_type = models.CharField(max_length=20, choices=USER_TYPE_CHOICES)
+ 
     #roles = models.ManyToManyField(RolesManager.get_role_model())
 
     #As classes devem estar dentro do modelo personalizado simplesmente

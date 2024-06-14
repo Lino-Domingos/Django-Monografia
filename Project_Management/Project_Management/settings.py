@@ -31,13 +31,16 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_extensions',
+    # 'django.contrib.gis',
+    # 'leaflet',
+    # 'djgeojson',
     
     'Team',
     'materializecssform',
     'Panel',
     'Project',
     'Task',
-    'rolepermissions',
+   
     
     
     
@@ -94,6 +97,9 @@ DATABASES = {
     }
 }
 
+# GDAL_LIBRARY_PATH = os.environ.get("GDAL_LIBRARY_PATH")
+# GEOS_LIBRARY_PATH=os.environ.get("GEOS_LIBRARY_PATH")
+
 #AUTH_USER_MODEL = 'Accounts.Usuario' 
 
 # Password validation
@@ -145,3 +151,4 @@ LOGIN_URL = 'login'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
