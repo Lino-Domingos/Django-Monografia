@@ -13,6 +13,12 @@ class ProjectModelForm(forms.ModelForm):
             'LV':forms.Select(attrs={'class':'browser-default'}),
             # 'perfil':forms.Select(attrs={'class':'browser-default'}),
         }
+        labels = {
+            'tipo': 'Selecione o tipo de Projecto:',
+            'equipe': 'Selecione a equipe correspondente:',
+            'LV': 'Selecione o LV correspondente:',
+
+        }
 
      
 

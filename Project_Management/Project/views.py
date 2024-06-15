@@ -51,8 +51,6 @@ class Templateview(PermissionRequiredMixin, TemplateView):
     def post(self, request, *args, **kwargs):
         if 'search' in request.POST:
             return self.search(request)
-        elif 'delete_id' in request.POST:
-            return self.delete(request, *args, **kwargs)
         else:
             return render(request, self.template_name, {})
 
@@ -68,15 +66,7 @@ class Templateview(PermissionRequiredMixin, TemplateView):
         else:
             return render(request, self.template_name, {})
     
-    def delete(self, request, *args, **kwargs):
-        project_id = request.POST.get('delete_id')
-        project = get_object_or_404(Projecto, pk=project_id)
-        try:
-            project.delete()
-            messages.success(request, 'Projecto deletado com sucesso.')
-        except Exception as e:
-            messages.error(request, f'Erro ao deletar projecto: {e}')
-        return redirect(reverse_lazy('project_show'))
+    
     
 
 # 2. CBV CreateView
@@ -90,20 +80,21 @@ class Createview(CreateView):
     #Fuction to get url when post it's processed
     #Back to All project page
     def get_success_url(self):
-        return reverse_lazy('Project:project_show')
+        # return reverse_lazy('Project:project_show')
+        return self.request.path
     
     #Form Valid
     #Fuction to validate a form when form it;s save
     def form_valid(self, form):
         form.save()
-        messages.add_message(self.request, messages.SUCCESS, 'Team | Criada com sucesso')
+        messages.success(self.request, 'Projecto| Criado com sucesso')
         #form.instance.creator = self.request.user
         return super().form_valid(form)
     
     #Form invalid
     #Fuction to show message when form it's invalidate
     def form_invalid(self, form):
-        messages.add_message(self.request, messages.ERROR, 'Team | Erro Tente Novamente!')
+        messages.ERROR(self.request, 'Projecto | Erro Tente Novamente!')
         return super().form_invalid(form)
     
 

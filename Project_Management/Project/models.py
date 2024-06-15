@@ -6,35 +6,6 @@ from Team.models import Team
 #-----------------------------------------------------------------------------
 
 
-#Analisar bem o nome da classe
-class Estado(models.Model):
-
-    Estado_TYPE = (
-        ('Pendente', 'Pendente'),
-        ('Aprovado', 'Aprovado'),
-        ('Submetido', 'Submetido'),
-        ('Reijeitado', 'Reijeitado'),
-    )
-
-    status = models.CharField(max_length=15, choices=Estado_TYPE, unique=True)
-    
-    def is_pendente(self):
-        return self.status == 'Pendente'
-    
-    def is_aprovado(self):
-        return self.status == 'Aprovado'
-    
-    def is_submetido(self):
-        return self.status == 'Submetido'
-    
-    def is_reijeitado (self):
-        return self.status == 'Reijeitado'
-    
-
-    def __str__(self):
-        return f'{self.status}'
-    
-
 class PT(models.Model):
     PT_NUMBER = models.CharField(max_length=20)
     asc = models.ForeignKey (ASC, on_delete=models.CASCADE)
