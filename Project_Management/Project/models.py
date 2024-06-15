@@ -67,7 +67,8 @@ class Projecto(models.Model):
     # perfil = models.ForeignKey(Estado, on_delete=models.CASCADE, default=1)
     is_active = models.BooleanField(default=True)
 
-
+    class Meta:
+        ordering = ['equipe'] 
 
     #Metodo para juntar dois campos de fields
     @property

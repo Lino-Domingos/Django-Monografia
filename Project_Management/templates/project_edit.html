@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+
+{% load materializecss %}
+
+{% block title %}
+    Projectos | Administração
+{% endblock %}
+
+{% block page_header %} 
+  Projectos
+{% endblock page_header %}
+
+{% block content_main %}
+   
+    
+ <div class="container">
+  <div class="row">
+    <div class="col s6 offset-s3"> <!-- Coluna s6 com offset s3 para centralizar -->
+      <div class="card">
+        <div class="card-content">
+          <span class="card-title">Project</span>
+          <hr>
+
+          {% if messages %}
+          {% for message in messages %}
+            {% if 'success' in message.tags %}
+              <div class="alert card green lighten-4 green-text text-darken-4">
+                <div class="card-content">
+                  <p><i class="material-icons">check_circle</i><span class="alerts"> Task Alert: </span> {{ message }} </p>
+                </div>
+              </div>
+            {% endif %}
+
+            {% if 'error' in message.tags %}
+              <div class="alert card red lighten-4 red-text text-darken-4">
+                <div class="card-content">
+                  <p><i class="material-icons">error</i><span class="alerts"> Task Alert: </span> {{ message }} </p>
+                </div>
+              </div>
+            {% endif %}
+          {% endfor %}
+          {% endif %}
+
+          <form action="" method="post">
+            {% csrf_token %}
+            <div class="row">
+              <div class="input-field col s12"> 
+                {{form.tipo.label}}
+                {{ form.tipo}}
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s12"> <!-- Utilize s12 para ocupar a largura total dentro do card -->
+                {{form.equipe.label}}
+                {{ form.equipe }}
+
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s12"> <!-- Utilize s12 para ocupar a largura total dentro do card -->
+                {{ form.LV.label }}
+                {{ form.LV }}
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col s12"> <!-- Coluna s12 para o botão ocupar a largura total do card -->
+                <button class="btn waves-effect" type="submit" name="action">Guardar</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="right">
+      <a href="{% url 'Project:project_show' %}" class="btn orange black-text"><i class="material-icons">arrow_back</i> Voltar </a>
+    </div>
+  </div>
+</div>
+
+  
+  
+
+{% endblock content_main %}
+
+
+
+{% block js_main %}
+<script>
+  // Remover mensagens de sucesso ou erro após 5 segundos
+  setTimeout(function() {
+    document.querySelectorAll('.alert').forEach(function(alert) {
+      alert.parentNode.removeChild(alert);
+    });
+  }, 5000);  // 5000 milissegundos = 5 segundos
+</script>
+{% endblock js_main %}

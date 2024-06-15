@@ -83,7 +83,7 @@ class CreateTeam(PermissionRequiredMixin, CreateView):
      
     #Metodo de rederecionamento da urls apos o processamento
     def get_success_url(self):
-        return self.request.path
+        return reverse_lazy('Team:team_show') 
     
     #Form Valid
     #Fuction to validate a form when form it;s save

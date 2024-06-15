@@ -1,6 +1,7 @@
+from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
-from django.views.generic import TemplateView, CreateView, DeleteView
+from django.views.generic import TemplateView, CreateView, DeleteView, UpdateView
 from .models import Projecto
 from django.db.models import Q
 from .forms import ProjectModelForm
@@ -20,28 +21,30 @@ class Templateview(PermissionRequiredMixin, TemplateView):
     permission_required = 'Project.view_projecto'
     template_name = 'project_view.html'
 
+    
 
+    def paginated(self, queryset, page_size):
+        paginator = Paginator(queryset, page_size)  # Show 10 teams per page
+        page = self.request.GET.get('page', 1)
+        
+        try:
+            paginated = paginator.page(page)
+        except PageNotAnInteger:
+            paginated = paginator.page(1)
+        except EmptyPage:
+            paginated = paginator.page(paginator.num_pages)
+
+        return paginated
     #Context data
     # 1. self (instance of the same classe) 
     # 2. kwargs (kewords arguments): dictionary to acess all kewords passed in a function
     # 3. Super
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-
         all_projects = Projecto.objects.all()
-        
-        # Pagination logic
-        page = self.request.GET.get('page', 1)
-        paginator = Paginator(all_projects, 3)  # Show 10 teams per page
-        
-        try:
-            projectos = paginator.page(page)
-        except PageNotAnInteger:
-            projectos = paginator.page(1)
-        except EmptyPage:
-            projectos = paginator.page(paginator.num_pages)
+        paginated_projects = self.paginated(all_projects, 6)
 
-        context['project'] = projectos
+        context['project'] = paginated_projects
         return context
     
     #Post 
@@ -57,14 +60,15 @@ class Templateview(PermissionRequiredMixin, TemplateView):
     def search(self, request):
         searching = request.POST.get('search', '')
         if searching:
-            results = Projecto.objects.filter(Q(LV__name__icontains=searching))
+            results = Projecto.objects.filter(Q(equipe__name__icontains=searching))
             if results:
-                context = {'result': results}
+                search_projects = self.paginated(results, 5)
+                context = {'project': search_projects}
             else:
                 context = {'erro': 'Nenhum resultado encontrado.'}
             return render(request, self.template_name, context)
         else:
-            return render(request, self.template_name, {})
+            return render(request, self.template_name, {{'project': self.paginate_queryset(Projecto.objects.all(), 5)}})
     
     
     
@@ -98,6 +102,40 @@ class Createview(CreateView):
         return super().form_invalid(form)
     
 
+class Deleteview(DeleteView):
+    model = Projecto
+    success_url = reverse_lazy('Project:project_show') 
+    template_name = 'project_confirm_delete.html'
+    
+
+    
+class Updateview(UpdateView):
+   #permission_required = 'Team.change_team'
+   model = Projecto
+   form_class = ProjectModelForm
+   template_name = 'project_edit.html'
+
+   
+  #  def get_success_url(self,*args,**kwargs):
+  #       return reverse_lazy(
+  #           'Team:team_detail',
+  #            kwargs={'pk':self.kwargs.get('pk')}
+  #       )
+   
+   def get_success_url(self):
+       return reverse_lazy('Project:project_show')
+   
+   def form_valid(self, form):
+        form.save()
+        messages.success(self.request, 'Projecto| Actuaizado com sucesso')
+        #form.instance.creator = self.request.user
+        return super().form_valid(form)
+    
+    #Form invalid
+    #Fuction to show message when form it's invalidate
+   def form_invalid(self, form):
+        messages.ERROR(self.request, 'Projecto | Erro Tente Novamente!')
+        return super().form_invalid(form)
     
 
 

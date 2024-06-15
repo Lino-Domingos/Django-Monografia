@@ -45,40 +45,7 @@
         
         {% endif %}
       
-               <!-- <div id="modal2" class="modal">
-                  <div class="modal-content orange">
-                      <div class="title">
-                           <h5>Tarefa</h5>
-                      </div>
-             
-      
-                         <div class="card">
-                             <div class="card-content">
-                                 <span class="card-title ">Criação de Tarefa</span>
-                                 <hr>
-
-                                   <form action="" method="post">
-                 
-                                     {% csrf_token %}
-
-                                     <div class="input-field s6">
-                                       {{form.as_p}}
-                                     </div>
-
-                                     <div class="input-field">
-                                       <button class="btn waves-effect waves-light" type="submit" name="action" >Submeter</button>
-                                        <a href="{% url 'Task:task_view' %}" class="btn red">Cancelar</a>
-                                     </div>
-              
-                                   </form>
-                             </div>
-                         </div>
-      
-            
-                  </div>
-
-                </div> -->
-<!-- End Bottom Section  -->
+    
 
 </div>
 </div>
@@ -93,20 +60,23 @@
             {% for tarefa in  result %} 
         
             <div class="col s4 m3">
-                <a  class="text-dark"  href="#">
+                <dvi class="text-dark" >
                    <div class="card horizontal">
                      <div class="card-image">
                      </div>
                      <div class="card-stacked">
                        <div class="card-content">
-                       <p> <i class="bx bx-task icon"></i> {{tarefa.name}} </p>
+                        <span class="card-title">{{tarefa.name}} </span>
+                        <p class="blue-text"><strong class="black-text">Equipe:</strong> {{tarefa.get_team_name}}</p>
+                        <p class="blue-text"><strong class="black-text">Estado:</strong> {{tarefa.status}}</p>
                        </div>
+                       <hr>
                        <div class="card-action">
-                         <a href="#" class="black-text">Estado - {{tarefa.status}}</a>
+                         <!--Sera para adicionar a ocalizacao da tarefa entre outros apectos de localizcao-->
                        </div>
                      </div>
                    </div>
-                 </a>
+                </dvi>
             </div>
             {% endfor %}
             <!-- End SEction Result -->
@@ -124,20 +94,23 @@
           {% for  tarefa in tarefas %}
             
             <div class="col s4 m3">
-              <a  class="text-dark"  href="#">
+              <div  class="text-dark">
                  <div class="card horizontal">
                    <div class="card-image">
                    </div>
                    <div class="card-stacked">
-                     <div class="card-content">
-                     <p> <i class="bx bx-task icon"></i>{{tarefa.name}} </p>
-                     </div>
+                    <div class="card-content">
+                      <span class="card-title">{{tarefa.name}} </span>
+                      <p class="blue-text"><strong class="black-text">Equipe:</strong> {{tarefa.get_team_name}}</p>
+                      <p class="blue-text"><strong class="black-text">Estado:</strong> {{tarefa.status}}</p>
+                    </div>
+                     <hr>
                      <div class="card-action">
-                       <a href="#" class="black-text">Estado - {{tarefa.status}}</a>
+                       <!--Sera para adicionar a ocalizacao da tarefa entre outros apectos de localizcao-->
                      </div>
                    </div>
                  </div>
-               </a>
+              </div>
           </div>
           {% endfor %}
 

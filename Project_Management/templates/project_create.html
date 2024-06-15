@@ -12,38 +12,7 @@
 
 {% block content_main %}
    
-    <!-- <div class="divider black"></div>
-
-      {% if messages %}
-          {% for message in messages %}
-             {% if 'info' in message.tags %}
-                <div class="card-panel  hoverable green lighten-2">{{message}}</div>
-             {% endif %}
-  
-             {% if 'error' in message.tags %}
-                <div class="card-panel  hoverable red lighten-2">{{message}}</div>
-             {% endif %}
-  
-          {% endfor %}
-      {% endif %}
-
-        <form class="card brown lighten-5" action="{% url 'Project:project_create' %}" method="POST" style="padding: 10px;">
-          {% csrf_token %}
-          
-          <h6 style="font-weight: 500; margin-bottom: 5px; " id="myForm1">Dados do Projecto</h6>
-          <div class="divider black"></div>
-
-          {{form}}
-          
-  <br>
-        <div class="row">
-            
-            <div class="col s6">
-              <button type="submit" class="waves-effect waves-light btn">Guardar</button>
-            </div>
-      </div>
-      </form>  
- -->
+    
  <div class="container">
   <div class="row">
     <div class="col s6 offset-s3"> <!-- Coluna s6 com offset s3 para centralizar -->
@@ -125,6 +94,6 @@
     document.querySelectorAll('.alert').forEach(function(alert) {
       alert.parentNode.removeChild(alert);
     });
-  }, 5000);  // 5000 milissegundos = 5 segundos
+  }, 1000);  // 5000 milissegundos = 5 segundos
 </script>
 {% endblock js_main %}

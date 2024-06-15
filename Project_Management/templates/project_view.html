@@ -24,7 +24,7 @@
             {% csrf_token %}
             <div class="input-field col s5">
               <i class="orange-text material-icons prefix">search</i>
-               <input id="search" type="search" name="search" required placeholder="Pesquise o projecto pelo nome">
+               <input id="search" type="search" name="search" required placeholder="Pesquise o projecto pelo nome da equipe">
             </div>
           </form>
       </div>
@@ -67,26 +67,9 @@
                       <td>{{ projects.tipo }}</td>
                       <td>{{projects.is_active}}</td>
                       <td>
-                          <a href="" class="waves-effect waves-light btn"><i class="material-icons" data-toggle="tooltip" title="Edit">edit</i></a>
-                          <a href="#modal2" class="waves-effect waves-light btn red modal-trigger"> <i class="material-icons" data-toggle="tooltip" title="Delete">delete</i></a>
+                          <a href="{% url 'Project:project_update' pk=projects.id %}" class="waves-effect waves-light btn"><i class="material-icons" data-toggle="tooltip" title="Edit">edit</i></a>
+                          <a href="{% url 'Project:project_delete' pk=projects.id %}" class="waves-effect waves-light btn red modal-trigger"> <i class="material-icons" data-toggle="tooltip" title="Delete">delete</i></a>
                           <!-- Modal Structure -->
-                          <div id="modal2" class="modal">
-                              <div class="modal-content orange">
-                                  <div class="title">
-                                      <h5>Team</h5>
-                                  </div>
-                                  <blockquote>
-                                      De certeza vai apagar permanentemente o projecto: {{projects.lv_equipe_name}}?
-                                      <p class="white-text">Sera permanente</p>
-                                  </blockquote>
-                                  <form method="post" action="">
-                                      {% csrf_token %}
-                                  </form>
-                              </div>
-                              <div class="modal-footer">
-                                  <input type="submit" class='btn btn-danger red' value="Delete">
-                              </div>
-                          </div>
                       </td>
                   </tr>
               {% endfor %}
@@ -104,25 +87,8 @@
                       <td>{{projects.tipo}}</td>
                       <td>{{projects.is_active}}</td>
                       <td>
-                          <a href="" class="waves-effect waves-light btn"><i class="material-icons" data-toggle="tooltip" title="Edit">edit</i></a>
-                          <a href="#modal2" class="waves-effect waves-light btn red modal-trigger"> <i class="material-icons" data-toggle="tooltip" title="Delete">delete</i></a>
-                          <!-- Modal Structure -->
-                          <div id="modal2" class="modal">
-                              <div class="modal-content orange">
-                                  <div class="title">
-                                      <h5>Projecto</h5>
-                                  </div>
-                                  <blockquote>
-                                      De certeza vai apagar permanentemente o projecto?
-                                      <p class="white-text">Ao apagar o projecto o registo será eliminado de forma permanente no sistema.</p>
-                                    </blockquote>
-                                  <form method="post" action="{% url 'Project:project_show'%}">
-                                      {% csrf_token %}
-                                      <input type="submit" class='btn btn-danger red' name="delete" value="Delete">
-
-                                  </form>
-                              </div>
-                          </div>
+                        <a href="{% url 'Project:project_update' pk=projects.id %}" class="waves-effect waves-light btn"><i class="material-icons" data-toggle="tooltip" title="Edit">edit</i></a>
+                        <a href="{% url 'Project:project_delete' pk=projects.id %}" class="waves-effect waves-light btn red modal-trigger"> <i class="material-icons" data-toggle="tooltip" title="Delete">delete</i></a>
                       </td>
                   </tr>
               {% endfor %}
@@ -157,10 +123,5 @@
 {% endblock content_main %}
 
 {% block js_main %}
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-      var elems = document.querySelectorAll('.modal');
-      var instances = M.Modal.init(elems);
-  });
-</script>
+
 {% endblock js_main %}

@@ -16,12 +16,12 @@
 {% block content_main %} 
       
 <div class="container">
-    
-      <div class="col s6">
+  <div class="row">
+      <div class="col s6 offset-s3">
         <div class="card">
             <div class="card-content">
-                <span class="card-title orange-text">Atribuição de Tarefa</span>
-                <hr>
+                <span class="card-title black-text">Atribuição de Tarefa</span>
+                
               {% if messages %}
                 {% for message in messages %}
                     {% if 'success' in message.tags %}
@@ -60,8 +60,26 @@
                   </form>
             </div>
         </div>
+
       </div>
-    
+    </div>
+    <div class="row">
+      <div class="right">
+        <a href="{% url 'Task:task_view' %}" class="btn orange black-text"><i class="material-icons">arrow_back</i> Voltar </a>
+      </div>
+    </div>
 </div>
           
 {% endblock content_main %} 
+
+
+{% block js_main %}
+<script>
+  // Remover mensagens de sucesso ou erro após 5 segundos
+  setTimeout(function() {
+    document.querySelectorAll('.alert').forEach(function(alert) {
+      alert.parentNode.removeChild(alert);
+    });
+  }, 1000);  // 5000 milissegundos = 5 segundos
+</script>
+{% endblock js_main %}

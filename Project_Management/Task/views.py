@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.urls import reverse_lazy
 from .forms import CreateForm
 from .models import Task
 from Team.models import Team
@@ -27,6 +28,8 @@ def Taskdetailview(request):
 class Templateview(PermissionRequiredMixin, TemplateView):
     permission_required = 'Task.add_task'
     template_name = 'task_view.html'
+    
+    
 
 
     #Funcao ou metodo para a paginacao de tarefas
@@ -82,7 +85,7 @@ class Createview(PermissionRequiredMixin, CreateView):
     #Fuction to get url when post it's processed
     #Back to All project page
     def get_success_url(self):
-        return self.request.path
+        return reverse_lazy('Task:task_view') 
     
     #Form Valid
     #Fuction to validate a form when form it;s save
