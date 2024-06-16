@@ -121,9 +121,7 @@ class listas(PermissionRequiredMixin, ListView):
         if self.request.user.is_authenticated:
             # Encontrar equipes onde o usuário é membro ou supervisor
             user_teams = Team.objects.filter(
-                Q(membros=self.request.user) |
-                Q(membros_1=self.request.user)
-            )
+                Q(membros=self.request.user) )
 
             if user_teams.exists():
                 # Filtrar tarefas associadas aos projetos das equipes do usuário
