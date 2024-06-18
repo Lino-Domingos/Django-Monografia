@@ -1,10 +1,23 @@
 # Lib Section 
 # Only for Libs
-from django.db import models
+from django.contrib.gis.db import models
 from Accounts.models import ASC
 from Team.models import Team
 #-----------------------------------------------------------------------------
 
+class PostoDeTransformao(models.Model):
+    geom = models.PointField(blank=True, null=True)
+    id_0 = models.IntegerField(db_column='ID', blank=True, null=True)  # Field name made lowercase. Field renamed because of name conflict.
+    pt_number = models.CharField(db_column='PT NUMBER', blank=True, null=True)  # Field name made lowercase. Field renamed to remove unsuitable characters.
+    latittude = models.FloatField(db_column='Latittude', blank=True, null=True)  # Field name made lowercase.
+    longitude = models.FloatField(db_column='Longitude', blank=True, null=True)  # Field name made lowercase.
+
+    class Meta:
+        managed = False
+        db_table = 'Posto de Transformação '
+
+    def __str__(self):
+        return self.pt_number
 
 class PT(models.Model):
     PT_NUMBER = models.CharField(max_length=20)
@@ -17,15 +30,13 @@ class PT(models.Model):
 
 class LV_Feeder(models.Model):
     name = models.CharField(max_length=15)
-    PT = models.ManyToManyField (PT)
+    PT = models.ForeignKey(PostoDeTransformao, on_delete=models.CASCADE, related_name='saidas', null=True)
 
 
     def save(self, *args, **kwargs):
-        if not self.name.startswith('PT'):
-            raise ValueError("O nome do LV Feeder deve começar com 'PT'.")
-        
-        if '-' not in self.name:
-            raise ValueError("O nome do LV Feeder deve incluir um traço (-) após 'PT'.")
+        if self.PT:
+            pt_number = self.PT.pt_number
+            self.name = f'{self.name}-{pt_number}'
         
         super().save(*args, **kwargs)
 

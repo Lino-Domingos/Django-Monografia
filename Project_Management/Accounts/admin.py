@@ -1,13 +1,12 @@
 from django.contrib import admin
 from django.contrib.auth import get_user_model
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
+from leaflet.admin import LeafletGeoAdmin
 
 # Importar os modelos criados
-from .models import Direccao_Regional, ASC, Provincia, User
+from .models import ASC, User, AscKamavota
 
-# Registrar os outros modelos
-admin.site.register(Provincia)
-admin.site.register(Direccao_Regional)
+
 admin.site.register(ASC)
 
 

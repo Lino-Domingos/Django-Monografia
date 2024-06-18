@@ -1,40 +1,41 @@
 # Lib Section 
 # Only for Libs
-from django.db import models
+from django.contrib.gis.db import models
 from django.contrib.auth.models import AbstractUser, BaseUserManager, Group, Permission
 #from django.contrib.auth.hashers import make_password 
 #-----------------------------------------------------------------------------
 
 
+     
+class AscKamavota(models.Model):
+    geom = models.MultiPolygonField(dim=3, blank=True, null=True)
+    oid_field = models.BigIntegerField(db_column='oid_', blank=True, null=True)  # Field renamed because it ended with '_'.
+    name = models.CharField(max_length=254, blank=True, null=True)
+    folderpath = models.CharField(max_length=254, blank=True, null=True)
+    symbolid = models.BigIntegerField(blank=True, null=True)
+    altmode = models.BigIntegerField(blank=True, null=True)
+    base = models.FloatField(blank=True, null=True)
+    clamped = models.BigIntegerField(blank=True, null=True)
+    extruded = models.BigIntegerField(blank=True, null=True)
+    snippet = models.CharField(max_length=254, blank=True, null=True)
+    popupinfo = models.CharField(max_length=254, blank=True, null=True)
+    shape_leng = models.FloatField(blank=True, null=True)
+    shape_area = models.FloatField(blank=True, null=True)
 
+    class Meta:
+        managed = False
+        db_table = 'ASC- Kamavota'
 
-#Provincias 
-# Classe Provincia
-class Provincia(models.Model):
-    nome_provincia = models.CharField(max_length=50, default="Cidade de Maputo")
-
-
-    def __str__(self):
-        return self.nome_provincia
-
-
-# ASC
-class Direccao_Regional(models.Model):
-     nome_direccao = models.CharField(max_length=10, null=True, blank=True)
-     provincia = models.ForeignKey(Provincia, on_delete=models.CASCADE, null=True, blank=True)
-
-     def __str__(self):
-          return self.nome_direccao
      
 
 # Classe responsavel pela ASC  
 class ASC(models.Model):
-    nome = models.CharField(max_length = 30)
+    nome = models.ForeignKey(AscKamavota, on_delete=models.CASCADE, null=True, blank=True)
     codigo_ASC = models.CharField(max_length = 2)
-    direccao_regional = models.ForeignKey(Direccao_Regional, on_delete=models.CASCADE)
+    #direccao_regional = models.ForeignKey(Direccao_Regional, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.nome
+        return self.nome.name
 
 
 # Classe responsavel pelo Customizacao do usuario

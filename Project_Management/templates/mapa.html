@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load static %}
+{% load leaflet_tags %}
+
+{% block title %}
+    Mapa Principal | Administração
+{% endblock %}
+
+
+{% block css %}
+    {% leaflet_css %}
+     {% leaflet_js %}
+    <style>
+        #map {
+            width:100%;
+            height: 600px;
+        }
+    </style>
+{% endblock css %}
+
+{% block page_header %} 
+  Mapa
+{% endblock page_header %}
+
+{% block content_main %}
+
+<div> {% leaflet_map 'map' %} </div>
+{% endblock content_main %}
+
+{% block js_main %}
+   
+{% endblock js_main %}

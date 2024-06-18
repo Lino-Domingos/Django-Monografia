@@ -5,3 +5,6 @@ from django.contrib.auth.decorators import login_required
 @login_required
 def painel(request):
     return render(request, 'home.html')
+
+def mapa(request):
+    return render(request, 'mapa.html')

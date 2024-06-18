@@ -48,6 +48,14 @@
           <span class="tooltip">Painel</span>
         </li>
 
+        <li>
+          <a href="{% url 'Panel:map' %}">
+            <i class="bx bx-map"></i>
+            <span class="links_name">Mapa Principal</span>
+          </a>
+          <span class="tooltip">Mapa Principal</span>
+        </li>
+
        
         {% if perms.Team.view_team %}
     
@@ -120,29 +128,9 @@
         </li>
 
 
-        <li>
-          <a href="#">
-            <i class="bx bx-folder"></i>
-            <span class="links_name">Gestão de Ficheiros</span>
-          </a>
-          <span class="tooltip">Gestão de Ficheiros</span>
-        </li>
         
-        <li>
-          <a href="#">
-            <i class="bx bx-user"></i>
-            <span class="links_name">User</span>
-          </a>
-          <span class="tooltip">User</span>
-        </li>
         
-        <li class="disabled">
-          <a href="#">
-            <i class="bx bx-cog"></i>
-            <span class="links_name">Definições</span>
-          </a>
-          <span class="tooltip">Definições</span>
-        </li>
+        
 
   
         <li class="profile">

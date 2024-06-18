@@ -31,9 +31,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_extensions',
-    # 'django.contrib.gis',
-    # 'leaflet',
-    # 'djgeojson',
+    'django.contrib.gis',
+    'leaflet',
+    
     
     'Team',
     'materializecssform',
@@ -92,8 +92,12 @@ WSGI_APPLICATION = 'Project_Management.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.contrib.gis.db.backends.postgis',
+        'NAME': 'ProjectMangeDB',
+        'USER':'postgres',
+        'PASSWORD':'lino123',
+        'HOST':'localhost',
+        'PORT':5432,
     }
 }
 
@@ -152,3 +156,18 @@ LOGIN_URL = 'login'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+LEAFLET_CONFIG = {
+    # Provide a URL to your Mapbox GL JS API key (if using)
+    
+    'DEFAULT_CENTER': (-25.9667, 32.5833),
+    'DEFAULT_ZOOM': 18,
+    'MAX_ZOOM': 22,
+    #'SRID': 4326,
+    'MIN_ZOOM':3,
+    'MINIMAP': True,
+    'RESET_VIEW': False,
+    'ATTRIBUTION_PREFIX': 'UEM-DMI',
+    'TILES':[ ('OSM', 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{'attribution': 'Leaflet'}),
+              ('Google Satellite', 'http://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {'attribution': 'ESRI'}),
+             ],
+}
