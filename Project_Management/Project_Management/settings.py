@@ -161,13 +161,12 @@ LEAFLET_CONFIG = {
     
     'DEFAULT_CENTER': (-25.9667, 32.5833),
     'DEFAULT_ZOOM': 18,
-    'MAX_ZOOM': 22,
+    'MAX_ZOOM': 18,
     #'SRID': 4326,
     'MIN_ZOOM':3,
     'MINIMAP': True,
     'RESET_VIEW': False,
+    'SCALE': 'both',
     'ATTRIBUTION_PREFIX': 'UEM-DMI',
-    'TILES':[ ('OSM', 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{'attribution': 'Leaflet'}),
-              ('Google Satellite', 'http://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {'attribution': 'ESRI'}),
-             ],
+    'TILES': 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
 }

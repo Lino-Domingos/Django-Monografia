@@ -6,27 +6,135 @@
     Mapa Principal | Administração
 {% endblock %}
 
-
 {% block css %}
     {% leaflet_css %}
-     {% leaflet_js %}
+    {% leaflet_js %}
     <style>
         #map {
-            width:100%;
-            height: 600px;
+            width: 100%;
+            height: 900px;
         }
+        #controls { margin: 20px; }
     </style>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
 {% endblock css %}
 
 {% block page_header %} 
-  Mapa
+    Mapa
 {% endblock page_header %}
 
 {% block content_main %}
-
-<div> {% leaflet_map 'map' %} </div>
+    {% leaflet_map "map" callback="window.map_init" %}
 {% endblock content_main %}
 
 {% block js_main %}
-   
+<script src="https://cdn.jsdelivr.net/npm/leaflet-wfst@2.0.1-beta.27/dist/leaflet-wfst.src.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.js" ></script>
+
+<script>
+function map_init(map, options) {
+    // Adiciona camadas de tiles definidas no LEAFLET_CONFIG
+    var osm = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: 'OpenStreetMap'
+    }).addTo(map);
+
+    var satellite = L.tileLayer('https://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
+        maxZoom: 20,
+        subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
+    });
+
+    var baseLayers = {
+        'OSM': osm,
+        'Satelite': satellite,
+    };
+
+    /*var wmsLayer = L.tileLayer.wms('http://localhost:8080/geoserver/Monografia/wms', {
+        layers: 'Monografia:ASC- Kamavota',
+        format: 'image/png',
+        transparent: true,
+        attribution: 'ASC'
+    });
+
+    var wmsLayer1 = L.tileLayer.wms('http://localhost:8080/geoserver/Monografia/wms', {
+        layers: 'Monografia:Posto de Transformação',
+        format: 'image/png',
+        transparent: true,
+        attribution: 'PT'
+    }).addTo(map);*/
+
+
+    /*var wfsLayer = new L.WFS({
+        url: "http://localhost:8080/geoserver/ows?", 
+        typeNS: "Monografia", 
+        typeName: "Posto de Transformacao", 
+        crs: L.CRS.EPSG4326, 
+        geometryField: "geom", 
+        style: function (feature) {
+            return {
+                color: 'red',
+                weight: 2
+            };
+        },
+        onEachFeature: function (feature, layer) {
+            layer.bindPopup(`Name: ${feature.properties.name}`);
+        }
+    });
+
+    wfsLayer.on('load', function() {
+        map.fitBounds(wfsLayer.getBounds());
+    });
+
+    wfsLayer.addTo(map);*/
+
+    L.control.layers(baseLayers).addTo(map);
+
+    //Testandoo1
+
+    var owsrootUrl = 'http://localhost:8080/geoserver/ows';
+var defaultParameters = {
+    service: 'WFS',
+    version: '1.0.0',
+    request: 'GetFeature',
+    typeName: 'Monografia:Postos', // Correctly formatted typeName with namespace and no spaces
+    maxFeatures: 50,
+    outputFormat: 'application/json',
+};
+var parameters = L.Util.extend(defaultParameters);
+var URL = owsrootUrl + L.Util.getParamString(parameters);
+
+$.ajax({
+    url: URL,
+    success: function (data) {
+        console.log("Received GeoJSON data: ", data); // Log the received data
+
+        // Check if data is a valid FeatureCollection
+        if (data && data.type && data.type === "FeatureCollection") {
+            try {
+                var geojson = new L.geoJson(data, {
+                    onEachFeature: function (feature, layer) {
+                        layer.bindPopup(feature.properties.geom);
+                    }
+                }).addTo(map);
+
+                // Fit map to GeoJSON bounds if layer is added successfully
+                if (geojson) {
+                    map.fitBounds(geojson.getBounds());
+                    console.log("GeoJSON added to the map.");
+                }
+            } catch (error) {
+                console.error("Error processing GeoJSON data: ", error);
+            }
+        } else {
+            console.error("Invalid GeoJSON data received:", data);
+        }
+    },
+    error: function (xhr, status, error) {
+        console.error("Error fetching data: ", status, error);
+    }
+});
+}
+</script>
 {% endblock js_main %}
+
+
