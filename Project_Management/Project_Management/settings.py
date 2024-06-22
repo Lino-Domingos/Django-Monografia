@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     'django_extensions',
     'django.contrib.gis',
     'leaflet',
+    'corsheaders',
     
     
     'Team',
@@ -56,6 +57,7 @@ AUTH_USER_MODEL = 'Accounts.User'
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -157,8 +159,6 @@ LOGIN_URL = 'login'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LEAFLET_CONFIG = {
-    # Provide a URL to your Mapbox GL JS API key (if using)
-    
     'DEFAULT_CENTER': (-25.9667, 32.5833),
     'DEFAULT_ZOOM': 18,
     'MAX_ZOOM': 18,
@@ -168,5 +168,8 @@ LEAFLET_CONFIG = {
     'RESET_VIEW': False,
     'SCALE': 'both',
     'ATTRIBUTION_PREFIX': 'UEM-DMI',
-    'TILES': 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
 }
+
+CCORS_ALLOWED_ORIGINS = [
+    "http://localhost:8080",  # URL do seu aplicativo JavaScript
+]
